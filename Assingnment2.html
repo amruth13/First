@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <script>
+        var createInputTime=function(para){
+    var _inputdivTime;
+    var _input;
+
+    this.construct=function(para){
+        _inputdivTime=$('<div>').addClass('test')
+            _input=$('<input type="time">')
+            _inputdivTime.append(_input)
+    }
+
+    this.val=function(val){
+        if(val!=undefined){
+            _input.val(val)
+        }
+        else{
+            return _input.val()
+        }
+    }
+    this.addToDom=function(){
+        $("body").append(_inputdivTime)
+        console.log(`enter the required time in the form of "hr-min"`);
+    }
+
+    this.construct(para)
+
+}
+let obj=new createInputTime()
+
+    </script>
+    
+</body>
+</html>

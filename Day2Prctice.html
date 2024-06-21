@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+</head>
+<body>
+    <script>
+     var CreateInput = function(options) 
+     {
+    var _inputDiv = $('<div>').addClass("test");
+    var _input, _input2;
+
+    if (options && (options.inputType === 'datetime' || options.inputType === 'timedate')) 
+    {
+        _input2 = $("<input type='date'>");
+        _input = $("<input type='time'>");
+    } 
+    else if (options && options.inputType === 'time')
+    {
+        _input = $("<input type='time'>");
+    } else
+    {
+        _input2 = $("<input type='date'>");
+    }
+
+    if (_input2) 
+    {
+        _inputDiv.append(_input2);
+    }
+    if (_input) 
+    {
+        _inputDiv.append(_input);
+    }
+    
+    $("body").append(_inputDiv);
+
+    var self = this;
+
+    this.val = function(val)
+     {
+        try {
+            if (val !== undefined) {
+                if (options && (options.inputType === 'datetime' || options.inputType === 'timedate')) {
+                    if (!isValidDate(val.date)) {
+                        throw new Error('Invalid date input, please enter in the format of YYYY-MM-DD');
+                    }
+                    if (!isValidTime(val.time)) {
+                        throw new Error('Invalid time input, please enter in the format of HH:MM');
+                    }
+                } else if (options && options.inputType === 'time') {
+                    if (!isValidTime(val.time)) {
+                        throw new Error('Invalid time input, please enter in the format of HH:MM');
+                    }
+                } else {
+                    if (!isValidDate(val.date)) {
+                        throw new Error('Invalid date input, please enter in the format of YYYY-MM-DD');
+                    }
+                }
+
+                if (_input2) {
+                    _input2.val(val.date);
+                }
+                if (_input) {
+                    _input.val(val.time);
+                }
+            } 
+            else 
+            {
+                return {
+                    date: _input2 ? _input2.val() : '',
+                    time: _input ? _input.val() : ''
+                };
+            }
+        } 
+        catch (error) 
+        {
+            console.error('Error in val() method:', error.message);
+        }
+    };
+
+    function isValidDate(dateStr) 
+    {
+        var date = new Date(dateStr);
+        return !isNaN(date.getTime());
+    }
+
+    function isValidTime(timeStr)
+     {
+        var timeParts = timeStr.split(':');
+        var hr = parseInt(timeParts[0], 10);
+        var min = parseInt(timeParts[1], 10);
+
+        return hr >= 0 && hr < 24 && min >= 0 && min < 60;
+
+    }
+
+
+    this.isFilled = function()
+     {
+        if (options.inputType === 'datetime' || options.inputType === 'timedate') 
+        {
+            return (_input2 && _input2.val() !== '') && (_input && _input.val() !== '');
+        } 
+        else if (options.inputType === 'time') 
+        {
+            return _input && _input.val() !== '';
+        } 
+        else 
+        {
+            return _input2 && _input2.val() !== '';
+        }
+    };
+
+    // this.isFilled = function()
+    //  {
+
+    //     if((_input && _input.val()!=='' || _input2 && _input2.val()== '')&&(_input && _input.val()=='' || _input2 && _input2.val()!== ''))
+    //     {
+    //         return true;
+    //         // console.log(true);
+
+    //     }
+    //     else if (_input2 && _input2.val() !== '') 
+    //     {
+    //         return true;
+    //     }
+    //    else if (_input && _input.val() !== '') 
+    //     {
+    //         return true;
+    //     }
+       
+    //     return false;
+    // };
+
+    this.Clear = function() {
+        if (_input2) {
+            _input2.val('');
+        }
+        if (_input) {
+            _input.val('');
+        }
+    };
+
+    //  let clear = function() {
+    //     if (_input2) {
+    //         _input2.val('');
+    //     }
+    //     if (_input) {
+    //         _input.val('');
+    //     }
+    // };
+
+
+    this.initNow = function() 
+    {
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = ('0' + (now.getMonth() + 1)).slice(-2);
+        var day = ('0' + now.getDate()).slice(-2);
+        var hours = ('0' + now.getHours()).slice(-2);
+        var minutes = ('0' + now.getMinutes()).slice(-2);
+
+        if (_input2) 
+        {
+            _input2.val(`${year}-${month}-${day}`);
+        }
+        if (_input) 
+        {
+            _input.val(`${hours}:${minutes}`);
+        }
+    };
+
+
+
+
+    return self;
+};
+
+//let obj=new CreateInput({ "inputType": "time" })
+// obj.val({ time: '20:30' });
+
+
+// let obu=new CreateInput({ "inputType": "date" })
+// obu.val({ date: '2024-10-19' });
+
+ let run=new CreateInput({ "inputType": "datetime" })
+// run.val({ date: '2028-03-20', time: '38:30' })
+
+
+
+// obj.isFilled()
+// console.log(obj.isFilled());
+
+
+// obj.clear();
+
+
+
+
+
+
+    </script>
+    
+</body>
+</html>

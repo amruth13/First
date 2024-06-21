@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amruth</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+</head>
+<body>
+    <!-- <div id="input">
+    </div> -->
+<script>
+
+let CreateInputDate =function(){
+
+
+    var _inputdiv;
+
+    constructor(options) 
+    {
+        this.defaults = {
+            inputType: 'date'
+        };
+
+        this.settings = $.extend({}, this.defaults, options);
+    }
+
+   
+
+  
+    createInput() 
+    {
+        var _input = $('<input>');
+
+        if (this.settings.inputType === 'date') {
+
+            var createInputTime=function(para){
+    var _inputdivTime;
+    var _input;
+
+    this.construct=function(para){
+        _inputdivTime=$('<div>').addClass('test')
+            _input=$('<input type="time">')
+            _inputdivTime.append(_input)
+    }
+
+    this.val=function(val){
+        if(val!=undefined){
+            _input.val(val)
+        }
+        else{
+            return _input.val()
+        }
+    }
+    this.addToDom=function(){
+        $("body").append(_inputdivTime)
+        console.log(`enter the required time in the form of "hr-min"`);
+    }
+
+    this.construct(para)
+
+}
+            // _input.attr('type', 'date');
+            // _inputdiv=$('<input>').addClass('test')
+            //  _inputdiv.append(_input)
+          
+
+        } else if (this.settings.inputType === 'time') {
+            _input.attr('type', 'time');
+           
+
+        } else {
+            console.error('invalied', this.settings.inputType);
+            return null;
+        }
+
+        return _input;
+    }
+
+    this.constructor()
+}
+
+
+$(document).ready(function() {
+    var obj = new CreateInputDate({ inputType: 'date' });
+    // var dateInput = obj.createInput();
+    // $('#input').append(dateInput);
+   obj.addToDom()
+   
+
+    // var obj2 = new CreateInputDate({ inputType: 'time' });
+    // var timeInput = obj2.createInput();
+    // $('#input').append(timeInput);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+  
+    <script>
+var createInput=function(para){
+    var _inputdiv;
+    var _input;
+
+    this.construct=function(para){
+        _inputdiv=$('<div>').addClass('test')
+            _input=$('<input>')
+            _inputdiv.append(_input)
+    }
+
+    this.val=function(val){
+        if(val!=undefined){
+            _input.val(val)
+        }
+        else{
+            return _input.val()
+        }
+    }
+    this.addToDom=function(){
+        $("body").append(_inputdiv)
+    }
+
+    this.construct(para)
+
+}
+let obj=new createInput()
+// obj.addToDom();
+// obj.val("Amruth")
+
+    </script>
+</body>
+</html>
+constructor(options) {
+    this.defaults = {
+        inputType: 'date'
+    };
+
+    this.settings = $.extend({}, this.defaults, options);
+}
+
+
+
+
+createInput() {
+    var _input = $('<input>');
+
+    if (this.settings.inputType === 'date') {
+        _input.attr('type', 'date');
+
+
+    } else if (this.settings.inputType === 'time') {
+        _input.attr('type', 'time');
+        $('#input').append(dateInput);
+
+    } else {
+        console.error('invalied', this.settings.inputType);
+        return null;
+    }
+
+    return _input;
+}

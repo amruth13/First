@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+
+
+    <div id="input">
+        
+    </div>
+<script>
+    // var create=function(pam){
+    //     var _inputdivData=$('<input type="date">').addClass('test1')
+    //     var _inputdivTime=$('<input type="date">').addClass('test2');
+
+    // }
+
+function CreateInputDate(options) {
+    
+    var defaults = {
+        inputType: 'date'
+    };
+
+    
+    var set = $.extend({}, defaults, options)
+
+    
+    this.createInput = function() {
+        var _input = $('<input>');
+
+        if (set.inputType === 'date') {
+            _input.attr('type', 'date');
+            // _inputdiv=$('<div>').addClass('test')
+            // _inputdiv.append(_input)
+        } else if (set.inputType === 'time') {
+            _input.attr('type', 'time');
+        } else {
+            console.error('Cannot give this as input', set.inputType);
+            return null; 
+        }
+
+        
+
+        return _input;
+    };
+}
+
+
+var obj = new CreateInputDate({ inputType: 'date' });
+var dateInput = obj.createInput();
+$('#input').append(dateInput);
+
+// var obj2 = new CreateInputDate({ inputType: 'time' });
+// var timeInput = obj2.createInput();
+// $('#input').append(timeInput); 
+
+
+
+</script>
+    
+</body>
+</html>

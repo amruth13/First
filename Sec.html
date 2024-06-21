@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <p id="j">
+        hekko
+    </p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, cumque.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, cumque.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, cumque.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, cumque.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, cumque.</p>
+
+    <script>
+//         class Polygon {
+//   constructor() {
+//     this.name = 'hello';
+//   }
+// }
+
+// const poly1 = new Polygon();
+
+// console.log(poly1.name);
+
+// class myname{
+
+
+  
+//     constructor(){
+//         this.name='amruth'
+//         this.age=10
+//     }
+// }
+// let hi=new myname()
+// console.log(hi.name);
+// console.log(hi.age);
+
+
+// var Sec=function(para){
+//     var _age;
+//     var _name;
+
+
+//     this.construct=function(para,amruth){
+        
+//         console.log(para);
+//     }
+ 
+    
+// }
+
+// let run=new Sec()
+// console.log(run.construct(10));
+// console.log(run.construct("amruth"));
+
+// NEW SEPERATE
+// function People(name,age){
+//     this.name=name;
+//     this.age=age;
+
+
+//     this.Display=function(){
+//         console.log(`name is :${this.name}`);
+//         console.log(`age is :${this.age}`);
+
+//     }
+//     this.CalAge=function(cal){
+//         return this.age+cal
+//     }
+
+   
+
+// }
+
+// const cal=20;
+// const People1=new People("Amruth",23)
+// const People2=new People("Rohan",80)
+
+// const People3=new People("Danny",10)
+
+// const People4=new People("Arun",60)
+
+
+// People4.Display();
+// let hu=People4.CalAge(cal)
+// console.log(`estimated age after 20Years will be : ${hu}`);
+
+
+
+// class user{
+//     constructor(username,mail,password){
+//         this.username=username;
+//         this.mail=mail;
+//         this.password=password;
+//     }
+
+//     personal(){
+//         return `${this.password}abc`
+//     }
+//     Case(){
+//         return`${this.username.toUpperCase()}`
+//     }
+//     ToAsce(){
+//         return `${this.username.charCodeAt()}`
+//     }
+// }
+
+// let amru=new user("amruth","amruthg13@gmail.com",'123456')
+// console.log(amru.personal());
+// console.log(amru.Case());
+// console.log(amru.ToAsce());
+
+
+
+let api=fetch('https://jsonplaceholder.typicode.com/todos/1')
+            .then (rs=>rs.json())
+            .then(json=>console.log(json))
+
+
+$(document).ready(function(){
+    $("p").click(function(){
+        $(this).hide()
+    })
+})
+            
+    </script>
+</body>
+</html>
