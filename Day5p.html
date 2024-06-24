@@ -200,7 +200,7 @@
     //             }
     //         };
 
-    this.Label = function(type, newText) {
+            this.Label = function (type, newText) {
                 if (type === 'date') {
                     _labelDate = newText;
                     _inputDiv.find('label').eq(0).text(newText);
@@ -209,6 +209,7 @@
                     _inputDiv.find('label').eq(1).text(newText);
                 }
             };
+
 
 
             this.ToolTipText = function(newText)
@@ -225,24 +226,12 @@
             };
 
 
-            // this.label=function(newT){
-            //     __labelTime==newT;
-            //         if(_input2)
-            //         {
-                        
-            //         }
-            //         if(_input)
-            //         {
-            //             _input.$target("_labelTime",newT)
-            //         }
-            // };
-
     return self;
 
     
 };
 
-let obj=new CreateInput({ "inputType": "Date" })
+let obj=new CreateInput({ "inputType": "timedate" })
 
 
     </script>
