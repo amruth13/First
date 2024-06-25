@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link  href="./Day5Practice.html">
+</head>
+<body>
+    <script>
+          let objarr=[]
+obj=$('<div>')
+
+
+
+objarr.push(new CreateInput({ "inputType": "date" },initVal()))
+
+objarr.push(new CreateInput({ "inputType": "datetime" }))
+
+objarr.push(new CreateInput({ "inputType": "time" }))
+objarr.forEach(function (x,i){
+console.log(x);
+$("body").append(x.getDesigen())
+})
+console.log(objarr);
+    </script>
+    
+</body>
+</html>

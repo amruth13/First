@@ -8,82 +8,76 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
-     .leftlabel{
-        position:relative;
-        top: 90px;
-    left: 0px;
-    right: 0px;
-    color: red;
-        font-size: small;
-        /* margin-left: 100px; */
+     /* .leftlabel{
+        
      }
      .rightlabel{
-        position: relative;
-    top: 50px;
-    left: 190px;
+        position:relative;
+    left: 50px;
     right: 0px;
     color: red;
-    font-size: small;
-    margin-left: 100px;
-     }
+        font-size: large;
+        margin-left: 100px; */
+     /* } */
      .defaultLabel{
-        color: red;
         position: absolute;
-        font-size: 20px;
-    left: 40px;
-    margin: -20px auto;
-     }
-     .timeleft{
-        color: red;
-        position: absolute;
-        font-size: 20px;
+        color: blue;
+        font-size: large;
         margin: -20px auto;
-        left: 140px;
      }
 
     </style>
 </head>
-<label class="lab"></label>
+
 <body>
     <script>
-        
         var CreateInput = function (options) {
             var _inputDiv = $('<div>').addClass("test");
+            var _des=$('<p>').append("Time is the never-ending continued progress of existence and events. It happens in an apparently irreversible way from the past, through the present and to the future. To measure time, we can use anything that repeats itself regularly. One example is the start of a new day")
+            var _desDate=$('<p>').append("A date is a specific time that can be named, for example a particular day or a particular year. What's the date today? You will need to give the dates you wish to stay and the number of rooms you require. If you date something, you give or discover the date when it was made or when it began")
             var _inputDiv2=$('<div>').addClass("test1")
             var _input, _input2;
-            var _des=$('<p>')
-                var _desDate=$('<p>')
             var _originalValue = { date: '', time: '' };
             var _isDirty = false;
-    
+            var _labelDate = '';
             var _labelDate2 = '';
             var _labelTime2 = '';
             
-            var _labelDate = 'date';
-            var _labelTime = 'time';
-          
+            var _labelTime = '';
             var _tooltipText = '';
-            var _changeCallback = null;
+            // var _changeCallback = null;
             var _defaultLabel;
-          var _dev;
-            var _SuppressLabel =true;
+            var _SuppressLabel=true;
+            
+        
 
             if (options && (options.inputType === 'datetime' || options.inputType === 'timedate')) 
             {
-                _input2 = $("<input type='date'>").on('change', function () {
-                    _isDirty = true;
-                    if (_changeCallback)
-                    {
-                        _changeCallback();
-                    }
-                })
-                _input = $("<input type='time'>").on('change', function () {
-                    _isDirty = true;
-                    if (_changeCallback) 
-                    {
-                        _changeCallback();
-                    }
-                });
+                // _input2 = $("<input type='date'>").on('change', function () {
+                //     _isDirty = true;
+                //     if (_changeCallback)
+                //     {
+                //         _changeCallback();
+                //     }
+                // });
+                // _input = $("<input type='time'>").on('change', function () {
+                //     _isDirty = true;
+                //     if (_changeCallback) 
+                //     {
+                //         _changeCallback();
+                //     }
+                // });
+                if (options && (options.inputType === 'datetime' || options.inputType === 'timedate')) 
+    {
+        _input2 = $("<input type='date' title='date'>").on('change', function() 
+        {
+            _isDirty = true;
+        });
+        _input = $("<input type='time' title='time'>").on('change', function() 
+        {
+            _isDirty = true;
+        });
+    } 
             } 
             else if (options && options.inputType === 'time') 
             {
@@ -106,58 +100,77 @@
                 });
             }
 
-            if (_input2) 
-            {
+            // this.constructor=function(options){
 
-                var labelDate = $("<label>").text(_labelDate);
-                _inputDiv.append(_desDate)
-               if(_SuppressLabel==true){
-                _inputDiv.append(labelDate)
-                _desDate.text("A date is a specific time that can be named, for example a particular day or a particular year.")
-            }
-                labelDate.addClass('defaultLabel')
-                _inputDiv.append(_input2);
-            }
+            // if (_input2) 
+            // {
 
-            if (_input) 
-            {
+            //     var labelDate = $("<label>").text(_labelDate);
+            //     _inputDiv.append(_desDate)
                
-                var labelTime = $("<label>").text(_labelTime);
-                _inputDiv.append(_des)
-                if(_SuppressLabel==true){
-                _inputDiv.append(labelTime)
-                _des.text("Time is the never-ending continued progress of existence and events")
-            }
-                _inputDiv.append(_input);
-                labelTime.addClass("defaultLabel")
-                
-            }
-            if (_input&&_input2)
-            {
-                // var labelDate = $("<label>").text(_labelDate);
-                // var labelTime = $("<label>").text(_labelTime);
-                    _desDate.text("A date is a specific time that can be named, for example a particular day or a particular year.")
-                    _des.text("Time is the never-ending continued progress of existence and events")
-                if(_SuppressLabel==true){
-                    labelTime.addClass('timeleft')
-                _inputDiv.append(labelTime,labelDate)
-                // _inputDiv.append(labelDate)
-                                            }
-                                            // labelDate.addClass('defaultLabel')
-                                            _inputDiv.append(_input2,_input);
-                                            // labelTime.addClass("defaultLabel")
-                                            // _inputDiv.append(_input);                          
+            //     _inputDiv.append(labelDate)
+            //     labelDate.addClass('defaultLabel')
+            //     _inputDiv.append(_input2);
+            // }
 
-                
-
-            }
-     
+            // if (_input) 
+            // {
+               
+            //     var labelTime = $("<label>").text(_labelTime);
+            //     _inputDiv.append(_des)
+            //     _inputDiv.append(labelTime)
+            //     labelTime.addClass("defaultLabel")
+            //     _inputDiv.append(_input);
+            // }
+          
        
-            $("body").append(_inputDiv);
+            // $("body").append(_inputDiv);}
+            this.constructor = function(options) {
+                if(_input&&_input2){
+                    var labelDate = $("<label>").text(_labelDate).addClass('defaultLabel');
+                _inputDiv.append(_desDate)
 
-            
+                _inputDiv.append(labelDate);
+                 _inputDiv.append(_input2);
+                 var labelTime = $("<label>").text(_labelTime).addClass('defaultLabel');
+                _inputDiv.append(_des)
+
+                 _inputDiv.append(labelTime);
+                _inputDiv.append(_input);
+
+                }
+                if (_input2) 
+            {
+              
+                 var labelDate = $("<label>").text(_labelDate).addClass('defaultLabel');
+                _inputDiv.append(_desDate)
+                        if(_SuppressLabel==false){
+                _inputDiv.append(labelDate);}
+                 _inputDiv.append(_input2);
+            }
+
+                if (_input) 
+            {
+                 var labelTime = $("<label>").text(_labelTime).addClass('defaultLabel');
+                _inputDiv.append(_des)
+
+                 _inputDiv.append(labelTime);
+                _inputDiv.append(_input);
+              }
+
+    $("body").append(_inputDiv);
+};
+
+            // this.constructor(options)
 
             var self = this;
+
+               /**
+             * 
+             * val()=> from this function we can update with date and time
+             * through parameter we are going to pass values of date and time
+             * and display on dom
+             * */
 
             this.val = function (val) 
             {
@@ -224,6 +237,12 @@
                 }
             };
 
+               /**
+             * 
+             * isFilled()=> from this function we can see the input is filled or not
+             * it returns output in True or False
+             * */
+
             this.isFilled = function () 
             {
                 if (options.inputType === 'datetime' || options.inputType === 'timedate')
@@ -259,6 +278,13 @@
                 return _isDirty;
             };
 
+
+      
+            /**
+             * 
+             * initNow()=> from this function we can update with current date and time
+             * on dom
+             * */
             this.initNow = function () {
                 var now = new Date();
                 var year = now.getFullYear();
@@ -277,7 +303,7 @@
                 }
             };
 
-            this._toolTipText = function (newText) 
+            this.ToolTipText = function (newText) 
             {
                 _tooltipText = newText;
                 if (_input2) 
@@ -291,60 +317,81 @@
             };
 
 
-            this.Label = function (type, newText,position) 
-            {
+            // var _tooltip2='';
+            // this._tooltipText=function(newText1,newText2)
+            // {
+            //     _tooltipText=newText1;
+            //     _tooltip2=newText2;
 
-                if(position=='left')
-                {
-
-                    if (type === 'datetime') 
-                {
-
-                    _labelDate2 = newText;
-                    _inputDiv.find('label').text(newText);
-                    labelTime2 = newText;
-                    _inputDiv.find('label').text(newText);
-                } 
-                else if(type=='date')
-                {
-                    _labelDate2 = newText;
-                    _inputDiv.find('label').text(newText).addClass('leftlabel');
-                }
-                else if (type === 'time') 
-                {
-                    _labelTime2 = newText;
-                    _inputDiv.find('label').text(newText).addClass('leftlabel');
-                }
-                }
-                else if(position=='right')
-                {
-                    if (type === 'datetime') 
-                {
-
-                    _labelDate2 = newText;
-                    labelTime2 = newText;
-                    _inputDiv.find('label').text(newText).addClass('rightlabel');
-                    
-                    _inputDiv.find('label').text(newText).addClass('rightlabel');
-                } 
-                  else  if (type === 'date') 
-                {
-                    _labelDate2 = newText;
-                    _inputDiv.find('label').text(newText).addClass('rightlabel');
-                } 
-                else if (type === 'time') 
-                {
-                    _labelTime2 = newText;
-                    _inputDiv.find('label').text(newText).addClass('rightlabel');
-                }
-                }
+            //     if(_input2&&_input)
+            //     {
+            //         _input2.attr('title', newText1);
+            //         _input.attr('title', newText2)
+            //     }
+            //     if (_input2) 
+            //     {
+            //         _input2.attr('title', newText1);
+            //     }
+            //     // if (_input) 
+            //     // {
+            //     //     _input.attr('title', newText2);
+            //     // }
+            // };
             
-            }
+
+            // this._SuppressLabel=function(newText1,newText2){
+            //     console.log(options._SuppressLabel);
+            //     if(options._SuppressLabel==false){
+            //         _labelDate=newText1
+            //         _labelTime=newText2
+            //     }
+            //     else{
+            //         console.log("supress label is not valied");
+            //     }
+
+            // }
+       
+
+            // this.SuppressLabel = function(newText1, newText2) 
+            // {
+
+
+            //     if (options.SuppressLabel === false) 
+            // {
+            //     _labelDate = newText1;
+            //      _labelTime = newText2;
+
+            //       if (_input2) 
+            //       {
+            //       _inputDiv.find('.labelDate').text(newText1);
+            //         }
+            //           if (_input) 
+            //           {
+            //          _inputDiv.find('.labelTime').text(newText2);
+            //           }
+            //     } 
+            //          else 
+            //          {
+            //             console.log("Suppress label is not valid or not allowed.");
+            //         }
+            // };
+
             function isValidDate(dateStr) 
             {
                 var date = new Date(dateStr);
                 return !isNaN(date.getTime());
             }
+
+            this.Label = function (type, newText) {
+                if (type === 'date') {
+                    _labelDate = newText;
+                    _inputDiv.find('label').text(newText);
+                } else if (type === 'time') {
+                    _labelTime = newText;
+                    _inputDiv.find('label').text(newText);
+                }
+            };
+        
 
             function isValidTime(timeStr) {
                 var timeParts = timeStr.split(':');
@@ -353,28 +400,34 @@
 
                 return hr >= 0 && hr < 24 && min >= 0 && min < 60;
             }
+
+
             this.getDesigen=function(){
                 return _inputDiv
             }
+
+        
+            this.constructor(options)
+
+
+            // Event_Change - Event handler to fire whenever the value changes,
+            //  either when set manually or through obj.val.
 
             $("input").change(function () 
             {
                 console.log("Input values changed!");
             });
             $("input").val(" ");
-
-        
-
             return self;
         };
 
         let obj = new CreateInput({ "inputType": "time" })
             // obj.val({ time: '30:30' });
             
-         let obu=new CreateInput({ "inputType": "date" })
+        //  let obu=new CreateInput({ "inputType": "date" })
                 //  obu.val({ date: '2024-10-19' });
 
-         let run=new CreateInput({ "inputType": "datetime" })
+        //  let run=new CreateInput({ "inputType": "datetime" })
                 // run.val({ date: '2028-03-20', time: '18:30' })
 
 
