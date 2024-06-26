@@ -40,6 +40,7 @@
       }
     </style>
   </head>
+
   <body>
     <script>
       var clsCreateInput = function (_initparam) {
@@ -50,21 +51,9 @@
         var _desDate;
         var _originalValue;
         var _isDirty = false;
-        var _labelDate2 = "";
-        var _labelTime2 = "";
-        var _labelDateTime2 = "";
-        var _labelDate;
-        var _labelTime;
-        var _labelDateTime;
-        var toolTipText = "";
         var _changeCallback = null;
-        var _defaultlabel;
-        var _dev;
         var _Suppresslabel = true;
         this.constructor = function (_initparam) {
-          _labelDate = "date";
-          _labelTime = "time";
-          _labelDateTime = "datetime";
           if (
             _initparam &&
             (_initparam.inputType === "datetime" ||
@@ -98,12 +87,12 @@
           if (_input2) {
             _desDate = $("<p>");
             _des = $("<p>");
-            var labelDate = $("<label>").text(_labelDate);
+            var labelDate = $("<label>").text(_initparam.labelDate);
             _baseContainer.append(_desDate);
             if (_Suppresslabel == true) {
               _baseContainer.append(labelDate);
               _desDate.text(
-                "A date is a specific time that can be named, for example a particular day or a particular year."
+                _initparam.descDate
               );
             }
             labelDate.addClass("defaultlabel");
@@ -113,12 +102,12 @@
           if (_input) {
             _desDate = $("<p>");
             _des = $("<p>");
-            var labelTime = $("<label>").text(_labelTime);
+            var labelTime = $("<label>").text(_initparam.labelTime);
             _baseContainer.append(_des);
             if (_Suppresslabel == true) {
               _baseContainer.append(labelTime);
               _des.text(
-                "Time is the never-ending continued progress of existence and events"
+                _initparam.descTime
               );
             }
             _baseContainer.append(_input);
@@ -127,14 +116,14 @@
           if (_input3) {
             _desDate = $("<p>");
             _des = $("<p>");
-            var labelDateTime = $("<label>").text(_labelDateTime);
+            labelDateTime = $("<label>").text(_initparam.labelDateTime);
             _baseContainer.append(_des, _desDate);
 
             if (_Suppresslabel == true) {
               _baseContainer.append(labelDateTime);
 
               _desDate.text(
-                "A date is a specific time that can be named, for example a particular day or a particular year Time is the never-ending continued progress of existence and events"
+                _initparam.descTimeDate
               );
             }
 
@@ -282,7 +271,6 @@
          **/
 
         this.toolTipText = function (newText) {
-          toolTipText = newText;
           if (_input2) {
             _input2.attr("title", newText);
           }
@@ -303,27 +291,24 @@
          **/
 
         this.label = function (type, newText, position) {
-          _labelDate = "date";
-          _labelTime = "time";
-          _labelDateTime = "datetime";
+          _initparam.labelDate = "date";
+          _initparam.labelTime = "time";
+          _initparam._initparam.labelDateTime = "datetime";
 
           if (position == "left") {
             if (type === "datetime") {
-              _labelDateTime2 = newText;
               _baseContainer
                 .find("label")
                 .text(newText)
                 .removeClass()
                 .addClass("leftlabel");
             } else if (type == "date") {
-              _labelDate2 = newText;
               _baseContainer
                 .find("label")
                 .text(newText)
                 .removeClass()
                 .addClass("leftlabel");
             } else if (type === "time") {
-              _labelTime2 = newText;
               _baseContainer
                 .find("label")
                 .text(newText)
@@ -332,8 +317,6 @@
             }
           } else if (position == "right") {
             if (type === "datetime") {
-              _labelDate2 = newText;
-              labelTime2 = newText;
               _baseContainer
                 .find("label")
                 .text(newText)
@@ -346,14 +329,12 @@
                 .removeClass()
                 .addClass("rightlabel");
             } else if (type === "date") {
-              _labelDate2 = newText;
               _baseContainer
                 .find("label")
                 .text(newText)
                 .removeClass()
                 .addClass("rightlabel");
             } else if (type === "time") {
-              _labelTime2 = newText;
               _baseContainer
                 .find("label")
                 .text(newText)
@@ -408,14 +389,18 @@
         $("input").val(" ");
       };
 
-      let obj = new clsCreateInput({ inputType: "time" });
-      // obj.val({ time: '30:30' });
+      let obj = new clsCreateInput({ inputType: "time", labelTime: "time",descTime:"time is imp" });
+      //   obj.val({ time: '10:30' });
 
-      let obu = new clsCreateInput({ inputType: "date" });
-      //  obu.val({ date: '2024-10-19' });
+      let obu = new clsCreateInput({ inputType: "date", labelDate: "date",descDate:"date is imp" });
+      //    obu.val({ date: '2024-10-19' });
 
-      let run = new clsCreateInput({ inputType: "datetime" });
-      // run.val({ date: '2028-03-20', time: '18:30' })
+      let run = new clsCreateInput({
+        inputType: "datetime",
+        labelDateTime: "datetime",
+        descTimeDate:"date and time"
+      });
+      //   run.val({ date: '2028-03-20', time: '18:30' })
     </script>
     <script src="./Day6.js"></script>
   </body>
