@@ -8,19 +8,22 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
       .leftlabel {
+        position: relative;
+        top: 90px;
+        left: 0px;
+        right: 0px;
+        color: red;
+        font-size: small;
+        /* margin-left: 100px; */
+      }
+      .rightlabel {
+        position: relative;
         top: 50px;
         left: 190px;
         right: 0px;
         color: red;
-        font-size: medium;
-      }
-      .rightlabel {
-        position: absolute;
-        top: 50px;
-        left: 113px;
-        right: 0px;
-        color: red;
-        font-size: medium;
+        font-size: small;
+        margin-left: 100px;
       }
       .defaultLabel {
         color: red;
@@ -31,7 +34,7 @@
       }
       .timeleft {
         color: red;
-        /* position: absolute; */
+        position: absolute;
         font-size: 20px;
         margin: -20px auto;
         left: 140px;
@@ -41,117 +44,115 @@
   <label class="lab"></label>
   <body>
     <script>
-      var clsCreateInput = function (_initparam) {
-        var _baseContainer = $("<div>").addClass("test");
-        var _baseContainer2 = $("<div>").addClass("test1");
+      var CreateInput = function (options) {
+        var _inputDiv = $("<div>").addClass("test");
+        var _inputDiv2 = $("<div>").addClass("test1");
         var _input, _input2;
-        var _des;
-        var _desDate;
+        var _des = $("<p>");
+        var _desDate = $("<p>");
         var _originalValue = { date: "", time: "" };
         var _isDirty = false;
+
         var _labelDate2 = "";
         var _labelTime2 = "";
+
         var _labelDate = "date";
         var _labelTime = "time";
-        var toolTipText = "";
+
+        var _tooltipText = "";
         var _changeCallback = null;
         var _defaultLabel;
         var _dev;
         var _SuppressLabel = true;
-        this.constructor = function (_initparam) {
-          if (
-            _initparam &&
-            (_initparam.inputType === "datetime" ||
-              _initparam.inputType === "timedate")
-          ) {
-            _input2 = $("<input type='date'>").on("change", function () {
-              _isDirty = true;
-              if (_changeCallback) {
-                _changeCallback();
-              }
-            });
-            _input = $("<input type='time'>").on("change", function () {
-              _isDirty = true;
-              if (_changeCallback) {
-                _changeCallback();
-              }
-            });
-          } else if (_initparam && _initparam.inputType === "time") {
-            _input = $("<input type='time'>").on("change", function () {
-              _isDirty = true;
-              if (_changeCallback) {
-                _changeCallback();
-              }
-            });
-          } else {
-            _input2 = $("<input type='date'>").on("change", function () {
-              _isDirty = true;
-              if (_changeCallback) {
-                _changeCallback();
-              }
-            });
-          }
 
-          if (_input2) {
-            _desDate = $("<p>");
-            _des = $("<p>");
-            var labelDate = $("<label>").text(_labelDate);
-            _baseContainer.append(_desDate);
-            if (_SuppressLabel == true) {
-              _baseContainer.append(labelDate);
-              _desDate.text(
-                "A date is a specific time that can be named, for example a particular day or a particular year."
-              );
+        if (
+          options &&
+          (options.inputType === "datetime" || options.inputType === "timedate")
+        ) {
+          _input2 = $("<input type='date'>").on("change", function () {
+            _isDirty = true;
+            if (_changeCallback) {
+              _changeCallback();
             }
-            labelDate.addClass("defaultLabel");
-            _baseContainer.append(_input2);
-          }
+          });
+          _input = $("<input type='time'>").on("change", function () {
+            _isDirty = true;
+            if (_changeCallback) {
+              _changeCallback();
+            }
+          });
+        } else if (options && options.inputType === "time") {
+          _input = $("<input type='time'>").on("change", function () {
+            _isDirty = true;
+            if (_changeCallback) {
+              _changeCallback();
+            }
+          });
+        } else {
+          _input2 = $("<input type='date'>").on("change", function () {
+            _isDirty = true;
+            if (_changeCallback) {
+              _changeCallback();
+            }
+          });
+        }
 
-          if (_input) {
-            _desDate = $("<p>");
-            _des = $("<p>");
-            var labelTime = $("<label>").text(_labelTime);
-            _baseContainer.append(_des);
-            if (_SuppressLabel == true) {
-              _baseContainer.append(labelTime);
-              _des.text(
-                "Time is the never-ending continued progress of existence and events"
-              );
-            }
-            _baseContainer.append(_input);
-            labelTime.addClass("defaultLabel");
-          }
-          if (_input && _input2) {
-            _desDate = $("<p>");
-            _des = $("<p>");
+        if (_input2) {
+          var labelDate = $("<label>").text(_labelDate);
+          _inputDiv.append(_desDate);
+          if (_SuppressLabel == true) {
+            _inputDiv.append(labelDate);
             _desDate.text(
               "A date is a specific time that can be named, for example a particular day or a particular year."
             );
+          }
+          labelDate.addClass("defaultLabel");
+          _inputDiv.append(_input2);
+        }
+
+        if (_input) {
+          var labelTime = $("<label>").text(_labelTime);
+          _inputDiv.append(_des);
+          if (_SuppressLabel == true) {
+            _inputDiv.append(labelTime);
             _des.text(
               "Time is the never-ending continued progress of existence and events"
             );
-            if (_SuppressLabel == true) {
-              labelTime.addClass("timeleft");
-              _baseContainer.append(labelTime, labelDate);
-            }
-
-            _baseContainer.append(_input2, _input);
           }
-        };
+          _inputDiv.append(_input);
+          labelTime.addClass("defaultLabel");
+        }
+        if (_input && _input2) {
+          // var labelDate = $("<label>").text(_labelDate);
+          // var labelTime = $("<label>").text(_labelTime);
+          _desDate.text(
+            "A date is a specific time that can be named, for example a particular day or a particular year."
+          );
+          _des.text(
+            "Time is the never-ending continued progress of existence and events"
+          );
+          if (_SuppressLabel == true) {
+            labelTime.addClass("timeleft");
+            _inputDiv.append(labelTime, labelDate);
+            // _inputDiv.append(labelDate)
+          }
+          // labelDate.addClass('defaultLabel')
+          _inputDiv.append(_input2, _input);
+          // labelTime.addClass("defaultLabel")
+          // _inputDiv.append(_input);
+        }
 
-        $("body").append(_baseContainer);
+        $("body").append(_inputDiv);
 
-        /**
-         * it sets the value if param is present else its returns the value
-         * @param{val} used to set the value
-         **/
+        var self = this;
+
         this.val = function (val) {
           try {
             if (val !== undefined) {
               if (
-                _initparam &&
-                (_initparam.inputType === "datetime" ||
-                  _initparam.inputType === "timedate")
+                options &&
+                (options.inputType === "datetime" ||
+                  options.inputType === "timedate")
               ) {
                 if (!isValidDate(val.date)) {
                   throw new Error(
@@ -163,7 +164,7 @@
                     "Invalid time input, please enter in the format of HH:MM"
                   );
                 }
-              } else if (_initparam && _initparam.inputType === "time") {
+              } else if (options && options.inputType === "time") {
                 if (!isValidTime(val.time)) {
                   throw new Error(
                     "Invalid time input, please enter in the format of HH:MM"
@@ -202,29 +203,21 @@
             console.error("Error in val() method:", error.message);
           }
         };
-        /**
-         * it check the input field is filled or not
-         * @return true or false
-         **/
 
         this.isFilled = function () {
           if (
-            _initparam.inputType === "datetime" ||
-            _initparam.inputType === "timedate"
+            options.inputType === "datetime" ||
+            options.inputType === "timedate"
           ) {
             return (
               _input2 && _input2.val() !== "" && _input && _input.val() !== ""
             );
-          } else if (_initparam.inputType === "time") {
+          } else if (options.inputType === "time") {
             return _input && _input.val() !== "";
           } else {
             return _input2 && _input2.val() !== "";
           }
         };
-        /**
-         * it is used to clear input field
-         *
-         **/
 
         this.clear = function () {
           if (_input2) {
@@ -237,19 +230,9 @@
           _isDirty = false;
         };
 
-        /**
-         * it used to see data is alterd or not
-         *@return in true or false
-         **/
-
         this.isDirty = function () {
           return _isDirty;
         };
-
-        /**
-         * it sets the current value for inputs
-         *
-         **/
 
         this.initNow = function () {
           var now = new Date();
@@ -267,13 +250,8 @@
           }
         };
 
-        /**
-         * it sets the text that will appear on mouse over
-         * @param{newText} used to set the textContent of ToolTip
-         **/
-
-        this.toolTipText = function (newText) {
-          toolTipText = newText;
+        this._toolTipText = function (newText) {
+          _tooltipText = newText;
           if (_input2) {
             _input2.attr("title", newText);
           }
@@ -282,65 +260,33 @@
           }
         };
 
-        /**
-         * used to set the label upon input
-         * @param{type=check type of input,
-         *        newText=set new label text,
-         *        position =left or right
-         * }
-         **/
-
         this.Label = function (type, newText, position) {
           if (position == "left") {
             if (type === "datetime") {
               _labelDate2 = newText;
-              _baseContainer.find("label").text(newText);
+              _inputDiv.find("label").text(newText);
               labelTime2 = newText;
-              _baseContainer.find("label").text(newText);
+              _inputDiv.find("label").text(newText);
             } else if (type == "date") {
               _labelDate2 = newText;
-              _baseContainer
-                .find("label")
-                .text(newText)
-                .removeClass()
-                .addClass("leftlabel");
+              _inputDiv.find("label").text(newText).addClass("leftlabel");
             } else if (type === "time") {
               _labelTime2 = newText;
-              _baseContainer
-                .find("label")
-                .text(newText)
-                .removeClass()
-                .addClass("leftlabel");
+              _inputDiv.find("label").text(newText).addClass("leftlabel");
             }
           } else if (position == "right") {
             if (type === "datetime") {
               _labelDate2 = newText;
               labelTime2 = newText;
-              _baseContainer
-                .find("label")
-                .text(newText)
-                .removeClass()
-                .addClass("rightlabel");
+              _inputDiv.find("label").text(newText).addClass("rightlabel");
 
-              _baseContainer
-                .find("label")
-                .text(newText)
-                .removeClass()
-                .addClass("rightlabel");
+              _inputDiv.find("label").text(newText).addClass("rightlabel");
             } else if (type === "date") {
               _labelDate2 = newText;
-              _baseContainer
-                .find("label")
-                .text(newText)
-                .removeClass()
-                .addClass("rightlabel");
+              _inputDiv.find("label").text(newText).addClass("rightlabel");
             } else if (type === "time") {
               _labelTime2 = newText;
-              _baseContainer
-                .find("label")
-                .text(newText)
-                .removeClass()
-                .addClass("rightlabel");
+              _inputDiv.find("label").text(newText).addClass("rightlabel");
             }
           }
         };
@@ -357,23 +303,24 @@
           return hr >= 0 && hr < 24 && min >= 0 && min < 60;
         }
         this.getDesigen = function () {
-          return _baseContainer;
+          return _inputDiv;
         };
 
         $("input").change(function () {
           console.log("Input values changed!");
         });
         $("input").val(" ");
-        this.constructor(_initparam);
+
+        return self;
       };
 
-      let obj = new clsCreateInput({ inputType: "time" });
+      let obj = new CreateInput({ inputType: "time" });
       // obj.val({ time: '30:30' });
 
-      let obu = new clsCreateInput({ inputType: "date" });
+      let obu = new CreateInput({ inputType: "date" });
       //  obu.val({ date: '2024-10-19' });
 
-      //   let run = new clsCreateInput({ inputType: "datetime" });
+    //   let run = new CreateInput({ inputType: "datetime" });
       // run.val({ date: '2028-03-20', time: '18:30' })
     </script>
     <script src="./Day6.js"></script>
