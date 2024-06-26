@@ -35,9 +35,14 @@
         margin: -20px auto;
         left: 140px;
       }
+      /* .test{
+        border: 2px solid black;
+        width: 600px;
+      } */
     </style>
   </head>
-  <label class="lab"></label>
+  <!-- <label class="lab"></label> -->
+   <!-- <input type="datetime-local" name="" id=""> -->
   <body>
     <script>
       var clsCreateInput = function (_initparam) {
@@ -60,24 +65,23 @@
         this.constructor = function (_initparam) {
           _labelDate = "date";
           _labelTime = "time";
-
           if (
             _initparam &&
             (_initparam.inputType === "datetime" ||
               _initparam.inputType === "timedate")
           ) {
-            _input2 = $("<input type='date'>").on("change", function () {
+            _input,_input2 = $("<input type='datetime-local'>").on("change", function () {
               _isDirty = true;
               if (_changeCallback) {
                 _changeCallback();
               }
             });
-            _input = $("<input type='time'>").on("change", function () {
-              _isDirty = true;
-              if (_changeCallback) {
-                _changeCallback();
-              }
-            });
+            // _input = $("<input type='time'>").on("change", function () {
+            //   _isDirty = true;
+            //   if (_changeCallback) {
+            //     _changeCallback();
+            //   }
+            // });
           } else if (_initparam && _initparam.inputType === "time") {
             _input = $("<input type='time'>").on("change", function () {
               _isDirty = true;
@@ -127,11 +131,11 @@
             _desDate = $("<p>");
             _des = $("<p>");
             _desDate.text(
-              "A date is a specific time that can be named, for example a particular day or a particular year."
+              "A date is a specific time that can be named, for example a particular day or a particular year Time is the never-ending continued progress of existence and events"
             );
-            _des.text(
-              "Time is the never-ending continued progress of existence and events"
-            );
+            // _des.text(
+            //   "Time is the never-ending continued progress of existence and events"
+            // );
             if (_Suppresslabel == true) {
               labelTime.addClass("timeleft");
               _baseContainer.append(labelTime, labelDate);
@@ -299,8 +303,8 @@
           if (position == "left") {
             if (type === "datetime") {
               _labelDate2 = newText;
-              _baseContainer.find("label").text(newText);
               labelTime2 = newText;
+              // _baseContainer.find("label").text(newText);
               _baseContainer.find("label").text(newText);
             } else if (type == "date") {
               _labelDate2 = newText;
@@ -372,20 +376,23 @@
         this.getDesigen = function () {
           return _baseContainer;
         };
-        /**
+
+
+        this.constructor(_initparam);
+         /**
          * Event handler to fire whenever the value changes, either when set manually or through object.val(val function)
          **/
-        $("input").change(function () {
+         $("input").change(function () {
           console.log("Input values changed!");
         });
         $("input").val(" ");
-        this.constructor(_initparam);
+
       };
 
       let obj = new clsCreateInput({ inputType: "time" });
       // obj.val({ time: '30:30' });
 
-      // let obu = new clsCreateInput({ inputType: "date" });
+      let obu = new clsCreateInput({ inputType: "date" });
       //  obu.val({ date: '2024-10-19' });
 
       // let run = new clsCreateInput({ inputType: "datetime" });
