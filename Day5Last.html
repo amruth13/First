@@ -12,17 +12,17 @@
         left: 190px;
         right: 0px;
         color: red;
-        font-size: medium;
+        font-size: 20px;
       }
       .rightlabel {
         position: absolute;
         top: 50px;
-        left: 113px;
+        left: 127px;
         right: 0px;
         color: red;
-        font-size: medium;
+        font-size: 20px;
       }
-      .defaultLabel {
+      .defaultlabel {
         color: red;
         position: absolute;
         font-size: 20px;
@@ -31,7 +31,6 @@
       }
       .timeleft {
         color: red;
-        /* position: absolute; */
         font-size: 20px;
         margin: -20px auto;
         left: 140px;
@@ -43,22 +42,25 @@
     <script>
       var clsCreateInput = function (_initparam) {
         var _baseContainer = $("<div>").addClass("test");
-        var _baseContainer2 = $("<div>").addClass("test1");
+        var _inputDiv2 = $("<div>").addClass("test1");
         var _input, _input2;
         var _des;
         var _desDate;
-        var _originalValue = { date: "", time: "" };
+        var _originalValue;
         var _isDirty = false;
         var _labelDate2 = "";
         var _labelTime2 = "";
-        var _labelDate = "date";
-        var _labelTime = "time";
+        var _labelDate;
+        var _labelTime;
         var toolTipText = "";
         var _changeCallback = null;
-        var _defaultLabel;
+        var _defaultlabel;
         var _dev;
-        var _SuppressLabel = true;
+        var _Suppresslabel = true;
         this.constructor = function (_initparam) {
+          _labelDate = "date";
+          _labelTime = "time";
+
           if (
             _initparam &&
             (_initparam.inputType === "datetime" ||
@@ -97,13 +99,13 @@
             _des = $("<p>");
             var labelDate = $("<label>").text(_labelDate);
             _baseContainer.append(_desDate);
-            if (_SuppressLabel == true) {
+            if (_Suppresslabel == true) {
               _baseContainer.append(labelDate);
               _desDate.text(
                 "A date is a specific time that can be named, for example a particular day or a particular year."
               );
             }
-            labelDate.addClass("defaultLabel");
+            labelDate.addClass("defaultlabel");
             _baseContainer.append(_input2);
           }
 
@@ -112,14 +114,14 @@
             _des = $("<p>");
             var labelTime = $("<label>").text(_labelTime);
             _baseContainer.append(_des);
-            if (_SuppressLabel == true) {
+            if (_Suppresslabel == true) {
               _baseContainer.append(labelTime);
               _des.text(
                 "Time is the never-ending continued progress of existence and events"
               );
             }
             _baseContainer.append(_input);
-            labelTime.addClass("defaultLabel");
+            labelTime.addClass("defaultlabel");
           }
           if (_input && _input2) {
             _desDate = $("<p>");
@@ -130,7 +132,7 @@
             _des.text(
               "Time is the never-ending continued progress of existence and events"
             );
-            if (_SuppressLabel == true) {
+            if (_Suppresslabel == true) {
               labelTime.addClass("timeleft");
               _baseContainer.append(labelTime, labelDate);
             }
@@ -290,7 +292,10 @@
          * }
          **/
 
-        this.Label = function (type, newText, position) {
+        this.label = function (type, newText, position) {
+          _labelDate = "date";
+          _labelTime = "time";
+
           if (position == "left") {
             if (type === "datetime") {
               _labelDate2 = newText;
@@ -344,11 +349,16 @@
             }
           }
         };
+        /**
+         * used to check wheather the input (date) value is valied or not
+         **/
         function isValidDate(dateStr) {
           var date = new Date(dateStr);
           return !isNaN(date.getTime());
         }
-
+        /**
+         * used to check wheather the input (time) value is valied or not
+         **/
         function isValidTime(timeStr) {
           var timeParts = timeStr.split(":");
           var hr = parseInt(timeParts[0], 10);
@@ -356,10 +366,15 @@
 
           return hr >= 0 && hr < 24 && min >= 0 && min < 60;
         }
+        /**
+         *it contains main div
+         **/
         this.getDesigen = function () {
           return _baseContainer;
         };
-
+        /**
+         * Event handler to fire whenever the value changes, either when set manually or through object.val(val function)
+         **/
         $("input").change(function () {
           console.log("Input values changed!");
         });
@@ -370,10 +385,10 @@
       let obj = new clsCreateInput({ inputType: "time" });
       // obj.val({ time: '30:30' });
 
-      let obu = new clsCreateInput({ inputType: "date" });
+      // let obu = new clsCreateInput({ inputType: "date" });
       //  obu.val({ date: '2024-10-19' });
 
-      //   let run = new clsCreateInput({ inputType: "datetime" });
+      // let run = new clsCreateInput({ inputType: "datetime" });
       // run.val({ date: '2028-03-20', time: '18:30' })
     </script>
     <script src="./Day6.js"></script>
