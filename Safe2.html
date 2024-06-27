@@ -16,7 +16,7 @@
       }
       .rightlabel {
         position: absolute;
-        top: 35px;
+        top: 50px;
         left: 127px;
         right: 0px;
         color: red;
@@ -38,22 +38,6 @@
       .test {
         position: relative;
       }
-      .rightlabel1 {
-        position: absolute;
-        top: 35px;
-        left: 187px;
-        right: 0px;
-        color: red;
-        font-size: 20px;
-      }
-      .rightlabel2 {
-        position: absolute;
-        top: 35px;
-        left: 100px;
-        right: 0px;
-        color: red;
-        font-size: 20px;
-      }
     </style>
   </head>
 
@@ -65,8 +49,7 @@
         var _input, _input2, _input3;
         var _des;
         var _desDate;
-        var _toolTipText;
-        var _label;
+        // var _originalValue;
         var _isDirty = false;
         var _changeCallback = null;
         var Suppresslabel;
@@ -108,7 +91,9 @@
             _baseContainer.append(_desDate);
             if (_initparam.Suppresslabel == true) {
               _baseContainer.append(labelDate);
-              _desDate.text(_initparam.descDate);
+              _desDate.text(
+                _initparam.descDate
+              );
             }
             labelDate.addClass("defaultlabel");
             _baseContainer.append(_input2);
@@ -121,7 +106,9 @@
             _baseContainer.append(_des);
             if (_initparam.Suppresslabel == true) {
               _baseContainer.append(labelTime);
-              _des.text(_initparam.descTime);
+              _des.text(
+                _initparam.descTime
+              );
             }
             _baseContainer.append(_input);
             labelTime.addClass("defaultlabel");
@@ -135,7 +122,9 @@
             if (_initparam.Suppresslabel == true) {
               _baseContainer.append(labelDateTime);
 
-              _desDate.text(_initparam.descTimeDate);
+              _desDate.text(
+                _initparam.descTimeDate
+              );
             }
 
             _baseContainer.append(_input3);
@@ -185,6 +174,9 @@
               if (_input3) {
                 _input3.val(val.datetime);
               }
+            //   _originalValue.datetime = val.datetime;
+            //   _originalValue.date = val.date;
+            //   _originalValue.time = val.time;
 
               _isDirty = true;
 
@@ -236,7 +228,7 @@
           if (_input3) {
             _input3.val("");
           }
-          //   _originalValue = { date: "", time: "" };
+        //   _originalValue = { date: "", time: "" };
           _isDirty = false;
         };
 
@@ -278,43 +270,46 @@
          * @param{newText} used to set the textContent of ToolTip
          **/
 
-        this.toolTipText = function () {
+        this.toolTipText = function (newText) {
           if (_input2) {
-            _input2.attr("title", _initparam.toolTipText);
+            _input2.attr("title", newText);
           }
           if (_input) {
-            _input.attr("title", _initparam.toolTipText);
+            _input.attr("title", newText);
           }
           if (_input3) {
-            _input3.attr("title", _initparam.toolTipText);
+            _input3.attr("title", newText);
           }
         };
 
         /**
          * used to set the label upon input
-         * @param{_initparam.type=check _initparam.type of input,
+         * @param{type=check type of input,
          *        newText=set new label text,
          *        position =left or right
          * }
          **/
 
-        this.label = function () {
-          position = _initparam.Position;
-          newText = _initparam.newLabel;
+        this.label = function (type, newText, position) {
+          _initparam.labelDate = "date";
+          _initparam.labelTime = "time";
+          _initparam.labelDateTime = "datetime";
+            //  position=_initparam.labelPosition;
+
           if (position == "left") {
-            if (_initparam.inputType === "datetime") {
+            if (type === "datetime") {
               _baseContainer
                 .find("label")
                 .text(newText)
                 .removeClass()
                 .addClass("leftlabel");
-            } else if (_initparam.inputType == "date") {
+            } else if (type == "date") {
               _baseContainer
                 .find("label")
                 .text(newText)
                 .removeClass()
                 .addClass("leftlabel");
-            } else if (_initparam.inputType === "time") {
+            } else if (type === "time") {
               _baseContainer
                 .find("label")
                 .text(newText)
@@ -322,43 +317,33 @@
                 .addClass("leftlabel");
             }
           } else if (position == "right") {
-            if (_initparam.inputType === "datetime") {
-              _baseContainer
-                .find("label")
-                .text(newText)
-                .removeClass()
-                .addClass("rightlabel1");
-            } else if (_initparam.inputType === "date") {
+            if (type === "datetime") {
               _baseContainer
                 .find("label")
                 .text(newText)
                 .removeClass()
                 .addClass("rightlabel");
-            } else if (_initparam.inputType === "time") {
+
               _baseContainer
                 .find("label")
                 .text(newText)
                 .removeClass()
-                .addClass("rightlabel2");
-            }
-          } 
-          else if (position == "top") {
-            if (_initparam.inputType === "datetime") {
+                .addClass("rightlabel");
+            } else if (type === "date") {
               _baseContainer
                 .find("label")
                 .text(newText)
-            } else if (_initparam.inputType === "date") {
-              _baseContainer
-                .find("label")
-                .text(newText)               
-            } else if (_initparam.inputType === "time") {
+                .removeClass()
+                .addClass("rightlabel");
+            } else if (type === "time") {
               _baseContainer
                 .find("label")
                 .text(newText)
+                .removeClass()
+                .addClass("rightlabel");
             }
           }
         };
-
         /**
          * used to check wheather the input (date) value is valied or not
          **/
@@ -403,9 +388,29 @@
           console.log("Input values changed!");
         });
         $("input").val(" ");
-       
       };
 
+      let obj = new clsCreateInput({ inputType: "time", 
+      labelTime: "time",
+      descTime:"time is imp",
+      Suppresslabel:false,
+      
+    })
+        obj.val({ time: '10:30' });
+
+      let obu = new clsCreateInput({ inputType: "date", 
+      labelDate: "date",
+      Suppresslabel:false,
+      descDate:"date is imp" });
+        //  obu.val({ date: '2024-10-19' });
+
+      let run = new clsCreateInput({
+        inputType: "datetime",
+        labelDateTime: "datetime",
+        descTimeDate:"date and time",
+        Suppresslabel:true,
+      });
+        // run.val({datetime:"2001-10-10T10:10"})
     </script>
     <script src="./Day6.js"></script>
   </body>
