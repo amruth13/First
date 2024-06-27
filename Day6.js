@@ -4,10 +4,10 @@ obj = $("<div>");
 objarr.push(
   new clsCreateInput({
     inputType: "time",
-    val:'10:15',
-    labelTime: "time",
+    val:'10:10',
+    label: "time",
     descTime: "time is imp",
-    Suppresslabel: true,
+    suppressLabel: true,
     toolTipText: "time",
     Position: "right",
     newLabel: "hello",
@@ -17,10 +17,9 @@ objarr.push(
 objarr.push(
   new clsCreateInput({
     inputType: "datetime",
-    val:'2024-06-27T15:30',
-    labelDateTime: "datetime",
+    abel: "datetime",
     descTimeDate: "date and time",
-    Suppresslabel: true,
+    suppressLabel: true,
     toolTipText: "Date and time",
     Position: "left",
     newLabel: "hello",
@@ -30,13 +29,14 @@ objarr.push(
 objarr.push(
   new clsCreateInput({
     inputType: "date",
-    val:"2001-11-10",
-    labelDate: "date",
-    Suppresslabel: true,
+    Label: "date",
+    val:'2001-10-10',
+    suppressLabel: true,
     toolTipText: "date",
     descDate: "date is imp",
     Position: "left",
     newLabel: "hello",
+    
   })
 );
 
@@ -48,11 +48,12 @@ objarr.forEach(function (x, i) {
 objarr[0].val();
 objarr[1].val();
 objarr[2].val();
+// objarr[2].label();
 
 // objarr[0].initNow();
 // objarr[1].initNow();
 // objarr[2].initNow();
-// objarr[0].label();
+objarr[0].label();
 // objarr[1].label();
 // objarr[2].label();
 

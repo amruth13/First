@@ -65,7 +65,7 @@
         var _val;
         var _isDirty = false;
         var _changeCallback = null;
-        var suppressLabel;
+        var suppresslabel;
         this.constructor = function (_initparam) {
           if (
             _initparam &&
@@ -100,42 +100,42 @@
           if (_input2) {
             _desDate = $("<p>");
             _des = $("<p>");
-            var labelDate = $("<label>").text(_initparam.labelDate);
+            var label  = $("<label>").text(_initparam.label );
             _baseContainer.append(_desDate);
-            if (_initparam.suppressLabel == true) {
-              _baseContainer.append(labelDate);
+            if (_initparam.suppresslabel == true) {
+              _baseContainer.append(label );
               _desDate.text(_initparam.descDate);
             }
-            labelDate.addClass("defaultlabel");
+            label .addClass("defaultlabel");
             _baseContainer.append(_input2);
           }
 
           if (_input) {
             _desDate = $("<p>");
             _des = $("<p>");
-            var labelTime = $("<label>").text(_initparam.labelTime);
+            var label  = $("<label>").text(_initparam.label );
             _baseContainer.append(_des);
-            if (_initparam.suppressLabel == true) {
-              _baseContainer.append(labelTime);
+            if (_initparam.suppresslabel == true) {
+              _baseContainer.append(label );
               _des.text(_initparam.descTime);
             }
             _baseContainer.append(_input);
-            labelTime.addClass("defaultlabel");
+            label .addClass("defaultlabel");
           }
           if (_input3) {
             _desDate = $("<p>");
             _des = $("<p>");
-            labelDateTime = $("<label>").text(_initparam.labelDateTime);
+            label = $("<label>").text(_initparam.label);
             _baseContainer.append(_des, _desDate);
 
-            if (_initparam.suppressLabel == true) {
-              _baseContainer.append(labelDateTime);
+            if (_initparam.suppresslabel == true) {
+              _baseContainer.append(label);
 
               _desDate.text(_initparam.descTimeDate);
             }
 
             _baseContainer.append(_input3);
-            labelDateTime.addClass("defaultlabel");
+            label.addClass("defaultlabel");
           }
         };
 
@@ -365,14 +365,14 @@
         /**
          * used to set the label upon input
          * @param{
-         *        Label=set new label text,
+         *        label=set new label text,
          *        position =default(top),left or right
          * }
          **/
 
         this.label = function () {
           position = _initparam.Position;
-          newText = _initparam.newLabel;
+          newText = _initparam.newlabel;
           if (position == "left") {
             if (_initparam.inputType === "datetime") {
               _baseContainer
@@ -472,12 +472,12 @@
 
       //   let obj=new clsCreateInput({
       //     inputType: "datetime",
-      // labelDateTime: "datetime",
+      // label Time: "datetime",
       // descTimeDate: "date and time",
-      // suppressLabel: true,
+      // suppresslabel: true,
       // toolTipText: "Date and time",
       // position: "left",
-      // newLabel: "hello",
+      // newlabel: "hello",
       //   })
       // obj.label()
     </script>
