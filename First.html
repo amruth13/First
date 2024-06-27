@@ -86,11 +86,35 @@
 // }
 
 
-var In=addEventListener("click",()=>{
-let btn=document.getElementById("opeanButton")
-let inpu=document.createElement("input")
-let hu=document.createElement("textarea")
-document.body.appendChild(inpu)
+function isValidDateTime(datetimeString) {
+
+    const datetimePattern = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/;
+
+    if (!datetimePattern.test(datetimeString)) {
+        return false;
+    }
+
+ 
+    const [, year, month, day, hour, minute] = datetimeString.match(datetimePattern);
+
+    const date = new Date(year, month - 1, day, hour, minute);
+
+    
+    return (
+        date.getFullYear() == year &&
+        date.getMonth() + 1 == month &&
+        date.getDate() == day &&
+        date.getHours() == hour &&
+        date.getMinutes() == minute
+    );
+}
+
+
+// var In=addEventListener("click",()=>{
+// let btn=document.getElementById("opeanButton")
+// let inpu=document.createElement("input")
+// let hu=document.createElement("textarea")
+// document.body.appendChild(inpu)
 });
     </script>
     
