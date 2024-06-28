@@ -15,7 +15,6 @@
         var _input;
         var _input2;
         var _input3;
-        var description;
         var _isDirty = false;
         var _changeCallback = null;
         var SuppressLabel;
@@ -60,7 +59,7 @@
             Description = $("<p>");
             var Label = $("<label>").text(_initparam.Label);
             _baseContainer.append(Description);
-            if (_initparam.SuppressLabel == true) {
+            if (_initparam.SuppressLabel == false) {
               _baseContainer.append(Label);
               Description.text(_initparam.Description);
             }
@@ -72,7 +71,7 @@
             Description = $("<p>");
             var Label = $("<label>").text(_initparam.Label);
             _baseContainer.append(Description);
-            if (_initparam.SuppressLabel == true) {
+            if (_initparam.SuppressLabel == false) {
               _baseContainer.append(Label);
               Description.text(_initparam.Description);
             }
@@ -84,7 +83,7 @@
             var Label = $("<label>").text(_initparam.Label);
             _baseContainer.append(Description);
 
-            if (_initparam.SuppressLabel) {
+            if (_initparam.SuppressLabel == false) {
               _baseContainer.append(Label);
 
               Description.text(_initparam.Description);
@@ -96,6 +95,65 @@
         };
 
         $("body").append(_baseContainer);
+
+
+        /**
+         * it sets the DefaultValue to input
+         * 
+         **/
+        this.DefaultValue=function(){
+            try {
+            if (_initparam.DefaultValue !== undefined) {
+              if (
+                _initparam &&
+                (_initparam.DisplayType === "datetime" ||
+                  _initparam.DisplayType === "timedate")
+              ) {
+                if (!isValidDateTime(_initparam.DefaultValue)) {
+                  throw new Error(
+                    "Invalid date input, please enter in the format of YYYY-MM-DD HH:MM"
+                  );
+                }
+              } else if (_initparam && _initparam.DisplayType === "time") {
+                if (!isValidTime(_initparam.DefaultValue)) {
+                  throw new Error(
+                    "Invalid time input, please enter in the format of HH:MM"
+                  );
+                }
+              } else {
+                if (!isValidDate(_initparam.DefaultValue)) {
+                  throw new Error(
+                    "Invalid date input, please enter in the format of YYYY-MM-DD"
+                  );
+                }
+              }
+
+              if (_input2) {
+                _input2.val(_initparam.DefaultValue);
+              }
+              if (_input) {
+                _input.val(_initparam.DefaultValue);
+              }
+              if (_input3) {
+                _input3.val(_initparam.DefaultValue);
+              }
+
+              _isDirty = true;
+
+              if (_changeCallback) {
+                _changeCallback();
+              }
+            } else {
+              return {
+                date: _input2 ? _input2.val() : "",
+                time: _input ? _input.val() : "",
+                datetime: _input3 ? _input3.val() : "",
+              };
+            }
+          } catch (error) {
+            console.error("Error in val() method:", error.message);
+          }
+        }
 
         /**
          * it sets the value if param is present else its returns the value
