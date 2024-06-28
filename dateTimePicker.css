@@ -1,0 +1,40 @@
+.leftlabel {
+    top: 50px;
+    left: 190px;
+    right: 0px;
+    font-size: 15px;
+  }
+  .rightlabel {
+    position: absolute;
+    top: 35px;
+    left: 127px;
+    right: 0px;
+    font-size: 15px;
+  }
+  .defaultlabel {
+    position: absolute;
+    font-size: 15px;
+    left: 40px;
+    margin: -15px auto;
+  }
+  .timeleft {
+    font-size: 15px;
+    margin: -15px auto;
+    left: 140px;
+  }
+  .test {
+    position: relative;
+  }
+  .rightlabel1 {
+    position: absolute;
+    top: 35px;
+    left: 187px;
+    right: 0px;
+    font-size: 15px;
+  }
+  .rightlabel2 {
+    position: absolute;
+    top: 35px;
+    left: 100px;
+    font-size: 15px;
+  }
