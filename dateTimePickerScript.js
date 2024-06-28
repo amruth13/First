@@ -1,26 +1,23 @@
-
-var clsCreateInput = function (_initparam) {
+var clsCreateInput = function (param) {
   var _baseContainer = $("<div>").addClass("test");
-  var _inputDiv2 = $("<div>").addClass("test1");
   var _input;
   var _input2;
   var _input3;
-  var _des;
-  var _desDate;
-  var _toolTipText;
-  var _label;
-  var _val;
+  var _initparam;
   var _isDirty = false;
   var _changeCallback = null;
-  var Suppresslabel;
-  this.constructor = function (_initparam) {
+
+  this.constructor = function (param) 
+  {
+     _initparam=param;
     if (
       _initparam &&
-      (_initparam.inputType === "datetime" ||
-        _initparam.inputType === "timedate")
+      (_initparam.DisplayType === "datetime" ||
+        _initparam.DisplayType === "timedate")
     ) {
       _input3 = $("<input>")
         .attr("type", "datetime-local")
+        .css({ width: _initparam.Width, height: _initparam.Height })
         .val("")
         .on("change", function () {
           _isDirty = true;
@@ -28,153 +25,92 @@ var clsCreateInput = function (_initparam) {
             _changeCallback();
           }
         });
-    } else if (_initparam && _initparam.inputType === "time") {
-      _input = $("<input type='time'>").on("change", function () {
-        _isDirty = true;
-        if (_changeCallback) {
-          _changeCallback();
-        }
-      });
+    } else if (_initparam && _initparam.DisplayType === "time") {
+      _input = $("<input type='time'>")
+        .css({ width: _initparam.Width, height: _initparam.Height })
+        .on("change", function () {
+          _isDirty = true;
+          if (_changeCallback) {
+            _changeCallback();
+          }
+        });
     } else {
-      _input2 = $("<input type='date'>").on("change", function () {
-        _isDirty = true;
-        if (_changeCallback) {
-          _changeCallback();
-        }
-      });
+      _input2 = $("<input type='date'>")
+        .css({ width: _initparam.Width, height: _initparam.Height })
+        .on("change", function () {
+          _isDirty = true;
+          if (_changeCallback) {
+            _changeCallback();
+          }
+        });
     }
 
     if (_input2) {
-      _desDate = $("<p>");
-      _des = $("<p>");
-      var labelDate = $("<label>").text(_initparam.labelDate);
-      _baseContainer.append(_desDate);
-      if (_initparam.Suppresslabel == true) {
-        _baseContainer.append(labelDate);
-        _desDate.text(_initparam.descDate);
+      Description = $("<p>");
+      var Label = $("<label>").text(_initparam.Label);
+      _baseContainer.append(Description);
+      if (_initparam.SuppressLabel == false) {
+        _baseContainer.append(Label);
+        Description.text(_initparam.Description);
       }
-      labelDate.addClass("defaultlabel");
+      Label.addClass("defaultlabel");
       _baseContainer.append(_input2);
     }
 
     if (_input) {
-      _desDate = $("<p>");
-      _des = $("<p>");
-      var labelTime = $("<label>").text(_initparam.labelTime);
-      _baseContainer.append(_des);
-      if (_initparam.Suppresslabel == true) {
-        _baseContainer.append(labelTime);
-        _des.text(_initparam.descTime);
+      Description = $("<p>");
+      var Label = $("<label>").text(_initparam.Label);
+      _baseContainer.append(Description);
+      if (_initparam.SuppressLabel == false) {
+        _baseContainer.append(Label);
+        Description.text(_initparam.Description);
       }
       _baseContainer.append(_input);
-      labelTime.addClass("defaultlabel");
+      Label.addClass("defaultlabel");
     }
     if (_input3) {
-      _desDate = $("<p>");
-      _des = $("<p>");
-      labelDateTime = $("<label>").text(_initparam.labelDateTime);
-      _baseContainer.append(_des, _desDate);
+      Description = $("<p>");
+      var Label = $("<label>").text(_initparam.Label);
+      _baseContainer.append(Description);
 
-      if (_initparam.Suppresslabel == true) {
-        _baseContainer.append(labelDateTime);
+      if (_initparam.SuppressLabel == false) {
+        _baseContainer.append(Label);
 
-        _desDate.text(_initparam.descTimeDate);
+        Description.text(_initparam.Description);
       }
 
       _baseContainer.append(_input3);
-      labelDateTime.addClass("defaultlabel");
+      Label.addClass("defaultlabel");
     }
   };
 
   $("body").append(_baseContainer);
 
   /**
-   * it sets the value if param is present else its returns the value
-   * @param{val} used to set the value
+   * it sets the DefaultValue to input
+   *
    **/
-  // this.val = function () {
-  //   try {
-  //     if (_initparam.val !== undefined) {
-  //       if (
-  //         _initparam &&
-  //         (_initparam.inputType === "datetime" ||
-  //           _initparam.inputType === "timedate")
-  //       ) {
-  //         if (!isValiedDateTime(_initparam.val)) {
-  //           throw new Error(
-  //             "Invalid date input, please enter in the format of YYYY-MM-DD HH:MM"
-  //           );
-  //         }
-  //       } else if (_initparam && _initparam.inputType === "time") {
-  //         if (!isValidTime(_initparam.val)) {
-  //           throw new Error(
-  //             "Invalid time input, please enter in the format of HH:MM"
-  //           );
-  //         }
-  //       } else {
-  //         if (!isValidDate(_initparam.val)) {
-  //           throw new Error(
-  //             "Invalid date input, please enter in the format of YYYY-MM-DD"
-  //           );
-  //         }
-  //       }
-
-  //       if (_input2) {
-  //         _input2.val(_initparam.val);
-  //       }
-  //       if (_input) {
-  //         _input.val(_initparam.val);
-  //       }
-  //       if (_input3) {
-  //         _input3.val(_initparam.val);
-  //       }
-
-  //       _isDirty = true;
-
-  //       if (_changeCallback) {
-  //         _changeCallback();
-  //       }
-  //     } else {
-  //       return {
-  //         date: _input2 ? _input2.val() : "",
-  //         time: _input ? _input.val() : "",
-  //         datetime: _input3 ? _input3.val() : "",
-  //       };
-  //     }
-  //   } catch (error) {
-  //     console.error("Error in val() method:", error.message);
-  //   }
-  // };
-
-
-
-
-  this.val = function (val) {
+  this.DefaultValue = function () {
     try {
-      if (_initparam.val !== undefined) {
+      if (_initparam.DefaultValue !== undefined) {
         if (
           _initparam &&
-          (_initparam.inputType === "datetime" ||
-            _initparam.inputType === "timedate")
+          (_initparam.DisplayType === "datetime" ||
+            _initparam.DisplayType === "timedate")
         ) {
-          if (!isValidDate(_initparam.val)) {
+          if (!isValidDateTime(_initparam.DefaultValue)) {
             throw new Error(
-              "Invalid date input, please enter in the format of YYYY-MM-DD"
+              "Invalid date input, please enter in the format of YYYY-MM-DD HH:MM"
             );
           }
-          if (!isValidTime(_initparam.val)) {
-            throw new Error(
-              "Invalid time input, please enter in the format of HH:MM"
-            );
-          }
-        } else if (_initparam && _initparam.inputType === "time") {
-          if (!isValidTime(_initparam.val)) {
+        } else if (_initparam && _initparam.DisplayType === "time") {
+          if (!isValidTime(_initparam.DefaultValue)) {
             throw new Error(
               "Invalid time input, please enter in the format of HH:MM"
             );
           }
         } else {
-          if (!isValidDate(_initparam.val)) {
+          if (!isValidDate(_initparam.DefaultValue)) {
             throw new Error(
               "Invalid date input, please enter in the format of YYYY-MM-DD"
             );
@@ -182,13 +118,13 @@ var clsCreateInput = function (_initparam) {
         }
 
         if (_input2) {
-          _input2.val(_initparam.val);
+          _input2.val(_initparam.DefaultValue);
         }
         if (_input) {
-          _input.val(_initparam.val);
+          _input.val(_initparam.DefaultValue);
         }
         if (_input3) {
-         _input3.val(_initparam.val);
+          _input3.val(_initparam.DefaultValue);
         }
 
         _isDirty = true;
@@ -200,8 +136,7 @@ var clsCreateInput = function (_initparam) {
         return {
           date: _input2 ? _input2.val() : "",
           time: _input ? _input.val() : "",
-        datetime: _input3 ? _input3.val() : "",
-
+          datetime: _input3 ? _input3.val() : "",
         };
       }
     } catch (error) {
@@ -209,15 +144,63 @@ var clsCreateInput = function (_initparam) {
     }
   };
 
-    /**
-     * function specfies the width of leftdiv based on position
-     **/
-    this.LeftDivwidth=()=>{
-      if(_initparam.position=='left'||_initparam.position=='right'){
-        _label.css("width",_initparam.Widhth)
-      }
-    }
+  /**
+   * it sets the value if param is present else its returns the value
+   * @param{val} used to set the value
+   **/
+  this.val = function (val) {
+    try {
+      if (val !== undefined) {
+        if (
+          _initparam &&
+          (_initparam.DisplayType === "datetime" ||
+            _initparam.DisplayType === "timedate")
+        ) {
+          if (!isValidDateTime(val.datetime)) {
+            throw new Error(
+              "Invalid date input, please enter in the format of YYYY-MM-DD HH:MM"
+            );
+          }
+        } else if (_initparam && _initparam.DisplayType === "time") {
+          if (!isValidTime(val.time)) {
+            throw new Error(
+              "Invalid time input, please enter in the format of HH:MM"
+            );
+          }
+        } else {
+          if (!isValidDate(val.date)) {
+            throw new Error(
+              "Invalid date input, please enter in the format of YYYY-MM-DD"
+            );
+          }
+        }
 
+        if (_input2) {
+          _input2.val(val.date);
+        }
+        if (_input) {
+          _input.val(val.time);
+        }
+        if (_input3) {
+          _input3.val(val.datetime);
+        }
+
+        _isDirty = true;
+
+        if (_changeCallback) {
+          _changeCallback();
+        }
+      } else {
+        return {
+          date: _input2 ? _input2.val() : "",
+          time: _input ? _input.val() : "",
+          datetime: _input3 ? _input3.val() : "",
+        };
+      }
+    } catch (error) {
+      console.error("Error in val() method:", error.message);
+    }
+  };
 
   /**
    * it check the input field is filled or not
@@ -226,13 +209,11 @@ var clsCreateInput = function (_initparam) {
 
   this.isFilled = function () {
     if (
-      _initparam.inputType === "datetime" ||
-      _initparam.inputType === "timedate"
+      _initparam.DisplayType === "datetime" ||
+      _initparam.DisplayType === "timedate"
     ) {
-      return (
-        _input2 && _input2.val() !== "" && _input && _input.val() !== ""
-      );
-    } else if (_initparam.inputType === "time") {
+      return _input2 && _input2.val() !== "" && _input && _input.val() !== "";
+    } else if (_initparam.DisplayType === "time") {
       return _input && _input.val() !== "";
     } else {
       return _input2 && _input2.val() !== "";
@@ -296,73 +277,73 @@ var clsCreateInput = function (_initparam) {
 
   this.toolTipText = function () {
     if (_input2) {
-      _input2.attr("title", _initparam.toolTipText);
+      _input2.attr("title", _initparam.ToolTipText);
     }
     if (_input) {
-      _input.attr("title", _initparam.toolTipText);
+      _input.attr("title", _initparam.ToolTipText);
     }
     if (_input3) {
-      _input3.attr("title", _initparam.toolTipText);
+      _input3.attr("title", _initparam.ToolTipText);
     }
   };
 
   /**
    * used to set the label upon input
    * @param{
-   *        Label=set new label text,
+   *        label=set new label text,
    *        position =default(top),left or right
    * }
    **/
 
   this.label = function () {
-    position = _initparam.Position;
+    LabelPosition = _initparam.LabelPosition;
     newText = _initparam.newLabel;
-    if (position == "left") {
-      if (_initparam.inputType === "datetime") {
+    if (LabelPosition == "left") {
+      if (_initparam.DisplayType === "datetime") {
         _baseContainer
           .find("label")
           .text(newText)
           .removeClass()
           .addClass("leftlabel");
-      } else if (_initparam.inputType == "date") {
+      } else if (_initparam.DisplayType == "date") {
         _baseContainer
           .find("label")
           .text(newText)
           .removeClass()
           .addClass("leftlabel");
-      } else if (_initparam.inputType === "time") {
+      } else if (_initparam.DisplayType === "time") {
         _baseContainer
           .find("label")
           .text(newText)
           .removeClass()
           .addClass("leftlabel");
       }
-    } else if (position == "right") {
-      if (_initparam.inputType === "datetime") {
+    } else if (LabelPosition == "right") {
+      if (_initparam.DisplayType === "datetime") {
         _baseContainer
           .find("label")
           .text(newText)
           .removeClass()
           .addClass("rightlabel1");
-      } else if (_initparam.inputType === "date") {
+      } else if (_initparam.DisplayType === "date") {
         _baseContainer
           .find("label")
           .text(newText)
           .removeClass()
           .addClass("rightlabel");
-      } else if (_initparam.inputType === "time") {
+      } else if (_initparam.DisplayType === "time") {
         _baseContainer
           .find("label")
           .text(newText)
           .removeClass()
           .addClass("rightlabel2");
       }
-    } else if (position == "top") {
-      if (_initparam.inputType === "datetime") {
+    } else if (LabelPosition == "top") {
+      if (_initparam.DisplayType === "datetime") {
         _baseContainer.find("label").text(newText);
-      } else if (_initparam.inputType === "date") {
+      } else if (_initparam.DisplayType === "date") {
         _baseContainer.find("label").text(newText);
-      } else if (_initparam.inputType === "time") {
+      } else if (_initparam.DisplayType === "time") {
         _baseContainer.find("label").text(newText);
       }
     }
@@ -379,24 +360,55 @@ var clsCreateInput = function (_initparam) {
    * used to check wheather the input (time) value is valied or not
    **/
   function isValidTime(timeStr) {
+    if (typeof timeStr !== "string" || !/^\d{2}:\d{2}$/.test(timeStr)) {
+      return false;
+    }
+
     var timeParts = timeStr.split(":");
     var hr = parseInt(timeParts[0], 10);
     var min = parseInt(timeParts[1], 10);
 
-    return hr >= 0 && hr < 24 && min >= 0 && min < 60;
+    if (hr >= 0 && hr < 24 && min >= 0 && min < 60) {
+      return true;
+    } else {
+      return false;
+    }
   }
+
   /**
    * used to check wheather the input (date and time) value is valied or not
    **/
-  function isValiedDateTime(dateStr, timeStr) {
-    var date = new Date(dateStr);
+  function isValidDateTime(dateTimeLocalStr) {
+    var dateTimeRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/;
+    if (!dateTimeRegex.test(dateTimeLocalStr)) {
+      return false;
+    }
+    var dateTimeParts = dateTimeLocalStr.split("T");
+    if (dateTimeParts.length !== 2) {
+      return false;
+    }
+    var dateStr = dateTimeParts[0];
+    var timeStr = dateTimeParts[1];
+    var date = Date.parse(dateStr);
+    if (isNaN(date)) {
+      return false;
+    }
     var timeParts = timeStr.split(":");
+    if (timeParts.length !== 2) {
+      return false;
+    }
     var hr = parseInt(timeParts[0], 10);
     var min = parseInt(timeParts[1], 10);
-    return (
-      !isNaN(date.getTime()), hr >= 0 && hr < 24 && min >= 0 && min < 60
-    );
+    if (isNaN(hr) || isNaN(min)) {
+      return false;
+    }
+    if (!(hr >= 0 && hr < 24 && min >= 0 && min < 60)) {
+      return false;
+    }
+
+    return true;
   }
+
   /**
    *it contains main div
    **/
@@ -404,7 +416,7 @@ var clsCreateInput = function (_initparam) {
     return _baseContainer;
   };
 
-  this.constructor(_initparam);
+  this.constructor(param);
   /**
    * Event handler to fire whenever the value changes, either when set manually or through object.val(val function)
    **/
@@ -413,14 +425,3 @@ var clsCreateInput = function (_initparam) {
   });
   $("input").val(" ");
 };
-
-//   let obj=new clsCreateInput({
-//     inputType: "datetime",
-// labelDateTime: "datetime",
-// descTimeDate: "date and time",
-// Suppresslabel: true,
-// toolTipText: "Date and time",
-// position: "left",
-// newLabel: "hello",
-//   })
-// obj.label()

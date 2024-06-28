@@ -4,7 +4,7 @@ obj = $("<div>");
 objarr.push(
   new clsCreateInput({
     DisplayType: "time",
-    DefaultValue:"04:10",
+    DefaultValue:"10:10",
     Label: "",
     SuppressLabel: false,
     LabelPosition: "left",
@@ -34,7 +34,7 @@ objarr.push(
 objarr.push(
   new clsCreateInput({
     DisplayType: "date",
-    DefaultValue :"2001-100-10",
+    DefaultValue :"2001-10-10",
     Label: "",
     SuppressLabel: false,
     LabelPosition: "top",
