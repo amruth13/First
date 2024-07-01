@@ -48,8 +48,10 @@ var clsCreateInput = function (param) {
     if (_input2) {
       Description = $("<p>");
       var Label = $("<label>").text(_initparam.Label);
-      _baseContainer.append(Description);
-      if (_initparam.SuppressLabel == false) {
+      _baseContainer.append(Description)
+      .css({marginLeft:_initparam.leftDivWidth});
+      if (_initparam.SuppressLabel == false)
+         {
         _baseContainer.append(Label);
         Description.text(_initparam.Description);
       }
@@ -60,7 +62,8 @@ var clsCreateInput = function (param) {
     if (_input) {
       Description = $("<p>");
       var Label = $("<label>").text(_initparam.Label);
-      _baseContainer.append(Description);
+      _baseContainer.append(Description)
+      .css({marginLeft:_initparam.leftDivWidth});
       if (_initparam.SuppressLabel == false) {
         _baseContainer.append(Label);
         Description.text(_initparam.Description);
@@ -71,7 +74,8 @@ var clsCreateInput = function (param) {
     if (_input3) {
       Description = $("<p>");
       var Label = $("<label>").text(_initparam.Label);
-      _baseContainer.append(Description);
+      _baseContainer.append(Description)
+      .css({marginLeft:_initparam.leftDivWidth});
 
       if (_initparam.SuppressLabel == false) {
         _baseContainer.append(Label);
@@ -143,6 +147,7 @@ var clsCreateInput = function (param) {
       console.error("Error in val() method:", error.message);
     }
   };
+
 
   /**
    * it sets the value if param is present else its returns the value
@@ -348,6 +353,7 @@ var clsCreateInput = function (param) {
       }
     }
   };
+  
 
   /**
    * used to check wheather the input (date) value is valied or not
@@ -415,7 +421,6 @@ var clsCreateInput = function (param) {
   this.getDesigen = function () {
     return _baseContainer;
   };
-
   this.constructor(param);
   /**
    * Event handler to fire whenever the value changes, either when set manually or through object.val(val function)

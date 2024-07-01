@@ -4,13 +4,13 @@ obj = $("<div>");
 objarr.push(
   new clsCreateInput({
     DisplayType: "time",
-    DefaultValue:"10:10",
+    DefaultValue:"10:50",
     Label: "time",
     SuppressLabel: false,
     LabelPosition: "left",
     Description   : "time is imp",
     ToolTipText : "time",
-    Width:"96px",
+    Width:"",
     Height:"22px",
     leftDivWidth:"",
    
