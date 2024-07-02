@@ -4,78 +4,60 @@ obj = $("<div>");
 objarr.push(
   new clsCreateInput({
     DisplayType: "time",
-    DefaultValue:"10:50",
-    Label: "time",
+    DefaultValue:"",
+    Label: "",
     SuppressLabel: false,
-    LabelPosition: "left",
+    LabelPosition: "top",
     Description   : "time is imp",
     ToolTipText : "time",
-    Width:"",
+    Width:"100%",
     Height:"22px",
-    leftDivWidth:"",
-   
+    LeftDivWidth :"20%",
+    LabelTextAlignment:0, 
   })
 );
 
 objarr.push(
   new clsCreateInput({
     DisplayType: "datetime",
-    DefaultValue :"2001-10-09T12:10",
-    Label: "datetime",
+    DefaultValue :"",
+    Label: "",
     SuppressLabel: false,
-    LabelPosition: "left",
-    Description   : "date and time",
+    LabelPosition: "top",
+    Description   : "date and time is imp",
     ToolTipText : "Date and time",
-    Width:"177px",
+    Width:"100%",
     Height:"22px",
-    leftDivWidth:"",
-    LabelTextAlingnment:0
-   
+    LeftDivWidth :"20%",
+    LabelTextAlignment:0,
   })
 );
 
 objarr.push(
   new clsCreateInput({
     DisplayType: "date",
-    DefaultValue :"2001-10-10",
-    Label:"date",
+    DefaultValue :"",
+    Label:"",
     SuppressLabel: false,
-    LabelPosition: "left",
+    LabelPosition: "top",
     Description   : "date is imp",
     ToolTipText : "date",
-    Width:"96px",
+    Width:"100%",
     Height:"22px",
-    leftDivWidth:"",
-    LabelTextAlignment:"",
-    
+    LeftDivWidth :"20%",
+    LabelTextAlignment:0,
   })
 );
 
 objarr.forEach(function (x, i) {
-  console.log(x);
-  $("body").append(x.getDesigen());
+console.log(x);
+$("body").append(x.getDesigen());
 x.label();
 x.DefaultValue();
- x.val();
- x.isFilled();
+x.val();
+x.isFilled();
+x.toolTipText ();
 //  x.clear();
- x.toolTipText ();
 //  x.initNow();
-
-
 });
-
-// objarr[0].val();
-// objarr[1].val();
-// objarr[2].val();
-// objarr[0].initNow();
-// objarr[1].initNow();
-// objarr[2].initNow();
-// objarr[0].label();
-// objarr[1].label();
-// objarr[2].label();
-
-
-
-
 console.log(objarr);

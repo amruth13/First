@@ -1,57 +1,40 @@
+*{
+  padding:0;
+  margin: 0;
+
+}
 .leftlabel {
-    top: 50px;
-    /* left: 1910px; */
-    /* margin-left: 50px; */
-    right: 0px;
-    font-size: 15px;
+  width: 100%;
+    float: left;
+
   }
   .rightlabel {
-    position: absolute;
-    top: 35px;
-    left: 106px;
-    right: 0px;
-    font-size: 15px;
+    width: 100%;
+    float: left;
+    margin-left: 10px;
   }
   .defaultlabel {
-    position: absolute;
-    font-size: 15px;
-    left: 40px;
-    margin: -15px auto;
+    left:43px;
+    top: 34px
   }
-  /* .timeleft {
-    font-size: 15px;
-    margin: -15px auto;
-    left: 140px;
-  } */
+  
   .test {
     overflow: hidden;
-  }
-  .rightlabel1 {
-    position: absolute;
-    top: 35px;
-    left: 187px;
-    right: 0px;
-    font-size: 15px;
+ 
   }
   .rightlabel2 {
-    position: absolute;
-    top: 35px;
-    left: 108px;
-    font-size: 15px;
+ float: left;
   }
-  /* .labelTextAlignment{
-    margin: ;
-  } */
-   /* .leftdivwidth{
-    margin-left: auto;
-   } */
+  
    .labelDivclass{
+    /* width: 100%; */
     float: left;
    }
-   .DescriptionDivClass{
+   .descriptionDivClass{
     width: 100%;
     float: left;
    }
    .controlDivClass{
     float: left;
+  
    }
