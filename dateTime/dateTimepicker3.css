@@ -1,0 +1,40 @@
+*{
+    padding:0;
+    margin: 0;
+  
+  }
+  .leftlabel {
+    width: 100%;
+      float: left;
+  
+    }
+    .rightlabel {
+      width: 100%;
+      float: left;
+      margin-left: 10px;
+    }
+    .defaultlabel {
+      left:43px;
+      top: 34px
+    }
+    
+    .test {
+      overflow: hidden;
+   
+    }
+    .rightlabel2 {
+   float: left;
+    }
+    
+     .labelDivclass{
+      /* width: 100%; */
+      float: left;
+     }
+     .descriptionDivClass{
+      width: 100%;
+      float: left;
+     }
+     .controlDivClass{
+      float: left;
+    
+     }

@@ -318,7 +318,7 @@ var clsCreateInput = function (param) {
         ) {
           if (!isValidDateTime(val.datetime)) {
             throw new Error(
-              "Invalid date input, please enter in the format of YYYY-MM-DD HH:MM"
+              "Invalid date input, please enter in the format of YYYY-MM-DDTHH:MM"
             );
           }
         } else if (_initparam && _initparam.DisplayType === "time") {
@@ -429,12 +429,10 @@ var clsCreateInput = function (param) {
       _input3.val(`${year}-${month}-${day}T${hours}:${minutes}`);
     }
   };
-
   /**
    * it sets the text that will appear on mouse over
-   * @param{newText} used to set the textContent of ToolTip
+   * @param{_initparam.ToolTipText} used to set the textContent of ToolTip
    **/
-
   this.toolTipText = function () {
     if (_input2) {
       _input2.attr("title", _initparam.ToolTipText);
@@ -446,18 +444,14 @@ var clsCreateInput = function (param) {
       _input3.attr("title", _initparam.ToolTipText);
     }
   };
-
   /**
-   * used to set the label upon input
+   * used to set the label
    * @param{
-   *        label=set new label text,
-   *        position =default(top),left or right
+   *        _initparam.LabelPosition=which gives posotion for the label 
    * }
    **/
-
   this.label = function () {
     LabelPosition = _initparam.LabelPosition;
-    // newText = _initparam.newLabel;
     if (LabelPosition == "left") {
       if (_initparam.DisplayType === "datetime") {
         _baseContainer.find("label").addClass("leftlabel");
@@ -484,7 +478,6 @@ var clsCreateInput = function (param) {
       }
     }
   };
-
   /**
    * used to check wheather the input (date) value is valied or not
    **/
@@ -499,18 +492,15 @@ var clsCreateInput = function (param) {
     if (typeof timeStr !== "string" || !/^\d{2}:\d{2}$/.test(timeStr)) {
       return false;
     }
-
     var timeParts = timeStr.split(":");
     var hr = parseInt(timeParts[0], 10);
     var min = parseInt(timeParts[1], 10);
-
     if (hr >= 0 && hr < 24 && min >= 0 && min < 60) {
       return true;
     } else {
       return false;
     }
   }
-
   /**
    * used to check wheather the input (date and time) value is valied or not
    **/
@@ -541,21 +531,17 @@ var clsCreateInput = function (param) {
     if (!(hr >= 0 && hr < 24 && min >= 0 && min < 60)) {
       return false;
     }
-
     return true;
   }
-
   /**
    *it contains main div
    **/
-  this.getDesigen = function () {
+   this.getDesign = function () {
     return _baseContainer;
   };
-  this.get=function(){
-    return _isDirty;
-  };
-
   this.constructor(param);
+
+ 
   /**
    * Event handler to fire whenever the value changes, either when set manually or through object.val(val function)
    **/
