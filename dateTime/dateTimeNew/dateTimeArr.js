@@ -20,7 +20,7 @@ objarr.push(
 objarr.push(
   new clsCreateInput({
     DisplayType: "datetime",
-    DefaultValue :"",
+    DefaultValue :"2001-10-10T10:15",
     Label: "datetime",
     SuppressLabel: false,
     LabelPosition: "",

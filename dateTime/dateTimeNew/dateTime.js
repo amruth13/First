@@ -80,12 +80,12 @@ class clsCreateInput
      this.#changeCallback = null;
  
 
-     handleInputChange=()=>
-     {
-       this.#isDirty=true;
-       console.log("input value changed");
+    //  handleInputChange=()=>
+    //  {
+    //    this.#isDirty=true;
+    //    console.log("input value changed");
  
-     } 
+    //  } 
       //Checking the DisplayType to create its type of inputTag
      if (
        this.#initparam &&
@@ -96,9 +96,9 @@ class clsCreateInput
      // creating input tag of type datetime
      {
        this.#input3 = $("<input type='datetime-local'>")
-         .attr("title",this.#initparam.ToolTipText)
+         .attr({"title":this.#initparam.ToolTipText,"value":this.#initparam.DefaultValue})
          .css({ width: this.#initparam.Width, height: this.#initparam.Height })
-         .on("change", handleInputChange);
+        //  .on("change", handleInputChange);
      } 
  
       /**
@@ -110,7 +110,7 @@ class clsCreateInput
        this.#input = $("<input type='time'>")
        .attr("title",this.#initparam.ToolTipText)
          .css({ width: this.#initparam.Width, height: this.#initparam.Height })
-         .on("change", handleInputChange);   
+        //  .on("change", handleInputChange);   
      } 
  
     /**
@@ -122,7 +122,7 @@ class clsCreateInput
        this.#input2 = $("<input type='date'>")
        .attr("title",this.#initparam.ToolTipText)
          .css({ width: this.#initparam.Width, height: this.#initparam.Height })
-         .on("change", handleInputChange);
+        //  .on("change", handleInputChange);
  
      }
  

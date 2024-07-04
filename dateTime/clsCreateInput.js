@@ -91,7 +91,7 @@ var clsCreateInput = function (param)
     {
       _input3 = $("<input type='datetime-local'>")
         .attr({title:_initparam.ToolTipText, 
-          value:_initparam.DefaultValue,
+          value:isValidDateTime(_initparam.DefaultValue)?_initparam.DefaultValue:console.error("invalied date-time input please enter date time in the form of YYYY-MM-DDTHH:MM"),
         })
         .css({ width: _initparam.Width, height: _initparam.Height })
         .on("change", handleInputChange);
@@ -105,7 +105,7 @@ var clsCreateInput = function (param)
     {
       _input = $("<input type='time'>")
       .attr({title:_initparam.ToolTipText, 
-        value:_initparam.DefaultValue,
+        value:isValidTime(_initparam.DefaultValue)?_initparam.DefaultValue:console.error("invalied time input please enter in the form of HH:MM"),
       })
         .css({ width: _initparam.Width, height: _initparam.Height })
         .on("change", handleInputChange);   
@@ -119,7 +119,7 @@ var clsCreateInput = function (param)
     {
       _input2 = $("<input type='date'>")
       .attr({title:_initparam.ToolTipText, 
-        value:_initparam.DefaultValue,
+        value:isValidDate(_initparam.DefaultValue)?_initparam.DefaultValue:console.error("invalied  date input please enter in the form of YYYY-MM-DD"),
       })
         .css({ width: _initparam.Width, height: _initparam.Height })
         .on("change", handleInputChange);
@@ -337,73 +337,6 @@ var clsCreateInput = function (param)
       }
     }
   };
-
-  /**
-   * passing values of date and time 
-   *
-   **/
-  // this.DefaultValue = function () {
-  //   try {
-  //     if (_initparam.DefaultValue !== undefined) {
-  //       if (
-  //         _initparam &&
-  //         (_initparam.DisplayType === "datetime" ||
-  //           _initparam.DisplayType === "timedate")
-  //       ) {
-  //         if (!isValidDateTime(_initparam.DefaultValue)) {
-  //           throw new Error(
-  //             "Invalid date input, please enter in the format of YYYY-MM-DDTHH:MM"
-  //           );
-  //         }
-  //       } else if (_initparam && _initparam.DisplayType === "time") {
-  //         if (!isValidTime(_initparam.DefaultValue)) {
-  //           throw new Error(
-  //             "Invalid time input, please enter in the format of HH:MM"
-  //           );
-  //         }
-  //       } else {
-  //         if (!isValidDate(_initparam.DefaultValue)) {
-  //           throw new Error(
-  //             "Invalid date input, please enter in the format of YYYY-MM-DD"
-  //           );
-  //         }
-  //       }
-  //       //Set values for input fields if they exist
-  //       if (_input2) {
-  //         _input2.val(_initparam.DefaultValue);
-  //         handleInputChange();
-  //       }
-  //       if (_input) {
-  //         _input.val(_initparam.DefaultValue);
-  //         handleInputChange();
-
-  //       }
-  //       if (_input3) {
-  //         _input3.val(_initparam.DefaultValue);
-  //         handleInputChange();
-
-  //       }
-
-  //       _isDirty = true;
-
-  //       if (_changeCallback) {
-  //         _changeCallback();
-  //       }
-  //     } 
-  //     /**
-  //      *Return the current value of input fields if no DefaultValue is provided
-  //      */
-  //     else {
-  //       return {
-  //         date: _input2 ? _input2.val() : "",
-  //         time: _input ? _input.val() : "",
-  //         datetime: _input3 ? _input3.val() : "",
-  //       };
-  //     }
-  //   } catch (error) {
-  //     console.error("Error in val() method:", error.message);
-  //   }
-  // };
 
   /**
    * By using this function we can set the values at first it check whether given date and time is valied or not 
