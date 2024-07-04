@@ -20,7 +20,7 @@ objarr.push(
 objarr.push(
   new clsCreateInput({
     DisplayType: "datetime",
-    DefaultValue :"2001-10-10T10:20",
+    DefaultValue :"",
     Label: "datetime",
     SuppressLabel: false,
     LabelPosition: "",
@@ -53,7 +53,7 @@ objarr.forEach(function (x, i) {
 console.log(x);
 $("body").append(x.getDesign());
 x.label();
-// x.DefaultValue();
+x.DefaultValue();
 x.val();
 x.isFilled();
 x.toolTipText ();

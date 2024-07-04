@@ -14,50 +14,73 @@
  */
 var clsCreateInput = function (param) 
 {
-  var _baseContainer = $("<div>").addClass("test");
-  var _labelDiv = $("<div>").addClass("labelDivclass");
-  var _descriptionDiv = $("<div>").addClass("descriptionDivClass");
-  var _controlDiv = $("<div>").addClass("controlDivClass");
+  var _baseContainer ;
+  var _labelDiv ;
+  var _descriptionDiv ;
+  var _controlDiv ;
   var _input;
   var _input2;
   var _input3;
   var _initparam;
-  var _isDirty = false;
-  var _changeCallback = null;
-  var _label = $("<label>");
+  var _isDirty;
+  var _changeCallback;
+  var _label;
   var _description;
 
-  this.constructor = function (param) {
+  this.constructor = function (param) 
+  {
     _initparam = param;
-    _labelDiv.append(_label).css("width", _initparam.LeftDivWidth);
 
    /**
     *  Setting default LabelPosition 
     *   And the default LabelPosition is top
     */
-    if(_initparam.LabelPosition==""||_initparam.LabelPosition==undefined)
-    {
-        _initparam.LabelPosition="top"
-    }
+    if(!_initparam.LabelPosition)_initparam.LabelPosition="top"
 
    /**
     *  Setting default DisplayType 
     *    And the default DisplayType is date (input type="date")
     */
-    if(_initparam.DisplayType==""||_initparam.DisplayType==undefined){
-        _initparam.DisplayType="date"
-    }
+  if(!_initparam.DisplayType)_initparam.DisplayType="date"
 
     /**
      *     Setting default Label
      *  And the default Label is empty ("")
      */
-    if(_initparam.Label==""||_initparam.Label==undefined){
-        _initparam.Label=""
-    }
-   
+  if(!_initparam.Label)_initparam.Label=""
 
-    //Checking the DisplayType to create its type of inputTag
+     /**
+     *     Setting default Width
+     *  And the default Width is auto
+     */
+  if(!_initparam.Width)_initparam.Width="auto"
+
+       /**
+     *     Setting default Width
+     *  And the default Width is auto
+     */
+   if(!_initparam.Height)_initparam.Height="auto"
+
+    /**
+     *     Setting default SuppressLabel
+     *  And the default SuppressLabel is false
+     */
+  if(!_initparam.SuppressLabel)_initparam.SuppressLabel=false
+
+    // create baseContainer,LabelContainer and Description container
+    _baseContainer = $("<div>").addClass("test");
+    _labelDiv = $("<div>").addClass("labelDivclass");
+    _label = $("<div>");
+    _descriptionDiv = $("<div>").addClass("descriptionDivClass");
+    _controlDiv = $("<div>").addClass("controlDivClass");
+    _labelDiv.append(_label).css("width", _initparam.LeftDivWidth);
+    _isDirty = false;
+    _changeCallback = null;
+
+
+     //Checking the DisplayType to create its type of inputTag
+
+    //  let datetime=isValidDateTime()?_initparam.DefaultValue:""
     if (
       _initparam &&
       (_initparam.DisplayType === "datetime" ||
@@ -67,14 +90,15 @@ var clsCreateInput = function (param)
     // creating input tag of type datetime
     {
       _input3 = $("<input type='datetime-local'>")
-        .attr("title",_initparam.ToolTipText)
+        .attr({title:_initparam.ToolTipText,
+          
+          // value:_initparam.DefaultValue
+          value:datetime,
+        
+        
+        })
         .css({ width: _initparam.Width, height: _initparam.Height })
-        .on("change", function () {
-          _isDirty = true;
-          if (_changeCallback) {
-            _changeCallback();
-          }
-        });
+        .on("change", handleInputChange);
     } 
 
      /**
@@ -86,12 +110,7 @@ var clsCreateInput = function (param)
       _input = $("<input type='time'>")
       .attr("title",_initparam.ToolTipText)
         .css({ width: _initparam.Width, height: _initparam.Height })
-        .on("change", function () {
-          _isDirty = true;
-          if (_changeCallback) {
-            _changeCallback();
-          }
-        });
+        .on("change", handleInputChange);   
     } 
 
    /**
@@ -103,12 +122,8 @@ var clsCreateInput = function (param)
       _input2 = $("<input type='date'>")
       .attr("title",_initparam.ToolTipText)
         .css({ width: _initparam.Width, height: _initparam.Height })
-        .on("change", function () {
-          _isDirty = true;
-          if (_changeCallback) {
-            _changeCallback();
-          }
-        });
+        .on("change", handleInputChange);
+
     }
 
    /**
@@ -120,8 +135,8 @@ var clsCreateInput = function (param)
       _label.text(_initparam.Label);
       _description = _initparam.Description;
       _descriptionDiv.append(_description);
-
-
+      _labelDiv.append(_label)
+      
     /**
      * To set LabelTextAlignment according to LabelPosition it will affect if the LabelPosition is top 
         and it works only for left,right LabelPosition
@@ -148,7 +163,6 @@ var clsCreateInput = function (param)
 
         //checking DisplayType
         case "time":
-        _baseContainer.append(_descriptionDiv).css("width", "100%");
           _controlDiv.append(_input);
 
            /**
@@ -157,7 +171,7 @@ var clsCreateInput = function (param)
          */
           if (_initparam.LabelPosition == "left") 
         {
-            // _baseContainer.append(_descriptionDiv).css("width", "100%");
+            _baseContainer.append(_descriptionDiv).css("width", "100%");
             _baseContainer.append(_labelDiv);
             _label.addClass("leftlabel");
             _controlDiv.css(
@@ -173,10 +187,12 @@ var clsCreateInput = function (param)
          */
           else if (_initparam.LabelPosition == "top") 
         {
-            _baseContainer.append(_labelDiv).css("width", "100%");
+            _labelDiv.css("width", "100%")
+            _baseContainer.append(_labelDiv)
             _baseContainer.append(_descriptionDiv).css("width", "100%");
             _label.addClass("defaultlabel");
-            _baseContainer.append(_controlDiv).css("width", "100%");
+            _controlDiv.css("width", "100%")
+            _baseContainer.append(_controlDiv);
 
         } 
           
@@ -186,7 +202,7 @@ var clsCreateInput = function (param)
          */
           else if (_initparam.LabelPosition == "right") 
         {
-            // _baseContainer.append(_descriptionDiv).css("width", "100%");
+            _baseContainer.append(_descriptionDiv).css("width", "100%");
             _baseContainer.append(_controlDiv);
             _controlDiv.css(
               "width",
@@ -223,10 +239,12 @@ var clsCreateInput = function (param)
          */
         else if (_initparam.LabelPosition == "top") 
         {
-            _baseContainer.append(_labelDiv).css("width", "100%");
+            _labelDiv.css("width", "100%")
+            _baseContainer.append(_labelDiv);
             _baseContainer.append(_descriptionDiv).css("width", "100%");
             _label.addClass("defaultlabel");
-            _baseContainer.append(_controlDiv).css("width", "100%");
+            _controlDiv.css("width", "100%");
+            _baseContainer.append(_controlDiv);
         } 
         
            /**
@@ -273,10 +291,12 @@ var clsCreateInput = function (param)
          */
         else if (_initparam.LabelPosition == "top") 
         {
-            _baseContainer.append(_labelDiv).css("width", "100%");
+          _labelDiv.css("width", "100%")
+            _baseContainer.append(_labelDiv);
             _baseContainer.append(_descriptionDiv).css("width", "100%");
             _label.addClass("defaultlabel");
-            _baseContainer.append(_controlDiv).css("width", "100%");
+             _controlDiv.css("width", "100%");
+            _baseContainer.append(_controlDiv);
         }
         
         /**
@@ -319,61 +339,71 @@ var clsCreateInput = function (param)
   };
 
   /**
-   * passing values of date and time through parameter 
+   * passing values of date and time 
    *
    **/
-  this.DefaultValue = function () {
-    try {
-      if (_initparam.DefaultValue !== undefined) {
-        if (
-          _initparam &&
-          (_initparam.DisplayType === "datetime" ||
-            _initparam.DisplayType === "timedate")
-        ) {
-          if (!isValidDateTime(_initparam.DefaultValue)) {
-            throw new Error(
-              "Invalid date input, please enter in the format of YYYY-MM-DDTHH:MM"
-            );
-          }
-        } else if (_initparam && _initparam.DisplayType === "time") {
-          if (!isValidTime(_initparam.DefaultValue)) {
-            throw new Error(
-              "Invalid time input, please enter in the format of HH:MM"
-            );
-          }
-        } else {
-          if (!isValidDate(_initparam.DefaultValue)) {
-            throw new Error(
-              "Invalid date input, please enter in the format of YYYY-MM-DD"
-            );
-          }
-        }
-        if (_input2) {
-          _input2.val(_initparam.DefaultValue);
-        }
-        if (_input) {
-          _input.val(_initparam.DefaultValue);
-        }
-        if (_input3) {
-          _input3.val(_initparam.DefaultValue);
-        }
+  // this.DefaultValue = function () {
+  //   try {
+  //     if (_initparam.DefaultValue !== undefined) {
+  //       if (
+  //         _initparam &&
+  //         (_initparam.DisplayType === "datetime" ||
+  //           _initparam.DisplayType === "timedate")
+  //       ) {
+  //         if (!isValidDateTime(_initparam.DefaultValue)) {
+  //           throw new Error(
+  //             "Invalid date input, please enter in the format of YYYY-MM-DDTHH:MM"
+  //           );
+  //         }
+  //       } else if (_initparam && _initparam.DisplayType === "time") {
+  //         if (!isValidTime(_initparam.DefaultValue)) {
+  //           throw new Error(
+  //             "Invalid time input, please enter in the format of HH:MM"
+  //           );
+  //         }
+  //       } else {
+  //         if (!isValidDate(_initparam.DefaultValue)) {
+  //           throw new Error(
+  //             "Invalid date input, please enter in the format of YYYY-MM-DD"
+  //           );
+  //         }
+  //       }
+  //       //Set values for input fields if they exist
+  //       if (_input2) {
+  //         _input2.val(_initparam.DefaultValue);
+  //         handleInputChange();
+  //       }
+  //       if (_input) {
+  //         _input.val(_initparam.DefaultValue);
+  //         handleInputChange();
 
-        _isDirty = true;
+  //       }
+  //       if (_input3) {
+  //         _input3.val(_initparam.DefaultValue);
+  //         handleInputChange();
 
-        if (_changeCallback) {
-          _changeCallback();
-        }
-      } else {
-        return {
-          date: _input2 ? _input2.val() : "",
-          time: _input ? _input.val() : "",
-          datetime: _input3 ? _input3.val() : "",
-        };
-      }
-    } catch (error) {
-      console.error("Error in val() method:", error.message);
-    }
-  };
+  //       }
+
+  //       _isDirty = true;
+
+  //       if (_changeCallback) {
+  //         _changeCallback();
+  //       }
+  //     } 
+  //     /**
+  //      *Return the current value of input fields if no DefaultValue is provided
+  //      */
+  //     else {
+  //       return {
+  //         date: _input2 ? _input2.val() : "",
+  //         time: _input ? _input.val() : "",
+  //         datetime: _input3 ? _input3.val() : "",
+  //       };
+  //     }
+  //   } catch (error) {
+  //     console.error("Error in val() method:", error.message);
+  //   }
+  // };
 
   /**
    * By using this function we can set the values at first it check whether given date and time is valied or not 
@@ -416,15 +446,18 @@ var clsCreateInput = function (param)
           }
         }
 
-        //used to fetch values from input
+        //Set values for input fields if they exist
         if (_input2) {
-          _input2.val(val.date);
+          _input2.val(val.date)
+          handleInputChange();
         }
         if (_input) {
           _input.val(val.time);
+          handleInputChange()
         }
         if (_input3) {
           _input3.val(val.datetime);
+          handleInputChange();
         }
 
         /**
@@ -433,13 +466,13 @@ var clsCreateInput = function (param)
          *  */ 
         _isDirty = true;
 
-        if (_changeCallback) {
-          _changeCallback();
-        }
+        // if (_changeCallback) {
+        //   _changeCallback();
+        // }
       } 
 
-      /**
-       * if its invalied input assing input to empty
+       /**
+       *Return the current value of input fields if no Value is provided
        */
       else {
         return {
@@ -513,19 +546,24 @@ var clsCreateInput = function (param)
 
     if (_input2) {
       _input2.val(`${year}-${month}-${day}`);
+      handleInputChange();
     }
     if (_input) {
       _input.val(`${hours}:${minutes}`);
+      handleInputChange();
+
     }
     if (_input3) {
       _input3.val(`${year}-${month}-${day}T${hours}:${minutes}`);
+          handleInputChange();
+
     }
   };
 
-  /**
-   * it sets the text that will appear on mouse over
-   * @param{text} used to set the textContent of ToolTip
-   **/
+    /**
+   * sets text content for the tooltip mouseover
+   * @param {*} toolTipText Edit the title text content on mouseover
+   */
   this.toolTipText = function (param) {
     if (_input2) {
       _input2.attr("title", param);
@@ -621,11 +659,21 @@ var clsCreateInput = function (param)
   /**
    * Event handler to fire whenever the value changes, either when set manually or through object.val(val function)
    **/
-  $("input").change(function () {
-    console.log("Input values changed!");
-  });
-  $("input").val(" ");
+//   function handleInputChange(e) {
+//     _isDirty = true;
+//     console.log("Input values changed");
+//     if (_changeCallback) {
+//         _changeCallback();
+//     }
+//     _initparam.onChange(e)
+// }
+      function handleInputChange()
+    {
+      _isDirty=true;
+      console.log("input value changed");
 
+    } 
+     
   /**
    *it contains main div
    **/
