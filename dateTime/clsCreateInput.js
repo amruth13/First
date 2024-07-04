@@ -80,7 +80,7 @@ var clsCreateInput = function (param)
 
      //Checking the DisplayType to create its type of inputTag
 
-    //  let datetime=isValidDateTime()?_initparam.DefaultValue:""
+    
     if (
       _initparam &&
       (_initparam.DisplayType === "datetime" ||
@@ -90,12 +90,8 @@ var clsCreateInput = function (param)
     // creating input tag of type datetime
     {
       _input3 = $("<input type='datetime-local'>")
-        .attr({title:_initparam.ToolTipText,
-          
-          // value:_initparam.DefaultValue
-          value:datetime,
-        
-        
+        .attr({title:_initparam.ToolTipText, 
+          value:_initparam.DefaultValue,
         })
         .css({ width: _initparam.Width, height: _initparam.Height })
         .on("change", handleInputChange);
@@ -108,7 +104,9 @@ var clsCreateInput = function (param)
     else if (_initparam && _initparam.DisplayType === "time") 
     {
       _input = $("<input type='time'>")
-      .attr("title",_initparam.ToolTipText)
+      .attr({title:_initparam.ToolTipText, 
+        value:_initparam.DefaultValue,
+      })
         .css({ width: _initparam.Width, height: _initparam.Height })
         .on("change", handleInputChange);   
     } 
@@ -120,7 +118,9 @@ var clsCreateInput = function (param)
     else 
     {
       _input2 = $("<input type='date'>")
-      .attr("title",_initparam.ToolTipText)
+      .attr({title:_initparam.ToolTipText, 
+        value:_initparam.DefaultValue,
+      })
         .css({ width: _initparam.Width, height: _initparam.Height })
         .on("change", handleInputChange);
 
