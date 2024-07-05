@@ -27,6 +27,10 @@ class clsCreateInput
    #changeCallback;
    #label;
    #description;
+   #handleInputChange;
+   #isRequired;
+   #checkBox;
+   #checkBoxDiv;
 
  
    constructor (param) 
@@ -78,14 +82,13 @@ class clsCreateInput
      this.#labelDiv.append(this.#label).css("width", this.#initparam.LeftDivWidth);
      this.#isDirty = false;
      this.#changeCallback = null;
- 
+    this.#checkBoxDiv=$('<div>').append(this.#checkBox);
+    this.#checkBox=$("<input type='checkBox'>")
 
-    //  handleInputChange=()=>
-    //  {
-    //    this.#isDirty=true;
-    //    console.log("input value changed");
+     if(this.#isRequired==true){
+      this.#controlDiv.append(this.#checkBoxDiv)
+     }
  
-    //  } 
       //Checking the DisplayType to create its type of inputTag
      if (
        this.#initparam &&
@@ -96,9 +99,11 @@ class clsCreateInput
      // creating input tag of type datetime
      {
        this.#input3 = $("<input type='datetime-local'>")
-         .attr({"title":this.#initparam.ToolTipText,"value":this.#initparam.DefaultValue})
+       .attr({title:this.#initparam.ToolTipText, 
+        value:this.#isValidDateTime(this.#initparam.DefaultValue)?this.#initparam.DefaultValue:console.error("invalied date-time input please enter date time in the form of YYYY-MM-DDTHH:MM"),
+      })
          .css({ width: this.#initparam.Width, height: this.#initparam.Height })
-        //  .on("change", handleInputChange);
+         .on("change",  this.handleInputChange.bind(this));
      } 
  
       /**
@@ -108,9 +113,11 @@ class clsCreateInput
      else if (this.#initparam && this.#initparam.DisplayType === "time") 
      {
        this.#input = $("<input type='time'>")
-       .attr("title",this.#initparam.ToolTipText)
+       .attr({title:this.#initparam.ToolTipText, 
+        value:this.#isValidTime(this.#initparam.DefaultValue)?this.#initparam.DefaultValue:console.error("invalied time input please enter in the form of HH:MM"),
+      })
          .css({ width: this.#initparam.Width, height: this.#initparam.Height })
-        //  .on("change", handleInputChange);   
+         .on("change",  this.handleInputChange.bind(this));   
      } 
  
     /**
@@ -120,9 +127,16 @@ class clsCreateInput
      else 
      {
        this.#input2 = $("<input type='date'>")
-       .attr("title",this.#initparam.ToolTipText)
+       .attr({title:this.#initparam.ToolTipText, 
+        value:this.#isValidDate(this.#initparam.DefaultValue)?this.#initparam.DefaultValue:console.error("invalied  date input please enter in the form of YYYY-MM-DD"),
+      })
          .css({ width: this.#initparam.Width, height: this.#initparam.Height })
-        //  .on("change", handleInputChange);
+         .on("change",  this.handleInputChange.bind(this))
+          // if(this.#isRequired==true){
+            
+          // }
+       
+         ;
  
      }
  
@@ -164,6 +178,8 @@ class clsCreateInput
          //checking DisplayType
          case "time":
            this.#controlDiv.append(this.#input);
+          //  this.#controlDiv.append(this.#checkBox)
+
  
             /**
           * Appending according to the label postion 
@@ -179,6 +195,9 @@ class clsCreateInput
                100 - parseInt(this.#initparam.LeftDivWidth) + "%"
              );
              this.#baseContainer.append(this.#controlDiv);
+             if(this.#initparam.isRequired==true){
+              this.#controlDiv.append(this.#checkBoxDiv)
+             }
          } 
  
             /**
@@ -339,73 +358,6 @@ class clsCreateInput
    };
  
    /**
-    * passing values of date and time 
-    *
-    **/
-   DefaultValue = function () {
-     try {
-       if (this.#initparam.DefaultValue !== undefined) {
-         if (
-           this.#initparam &&
-           (this.#initparam.DisplayType === "datetime" ||
-             this.#initparam.DisplayType === "timedate")
-         ) {
-           if (!isValidDateTime(this.#initparam.DefaultValue)) {
-             throw new Error(
-               "Invalid date input, please enter in the format of YYYY-MM-DDTHH:MM"
-             );
-           }
-         } else if (this.#initparam && this.#initparam.DisplayType === "time") {
-           if (!isValidTime(this.#initparam.DefaultValue)) {
-             throw new Error(
-               "Invalid time input, please enter in the format of HH:MM"
-             );
-           }
-         } else {
-           if (!isValidDate(this.#initparam.DefaultValue)) {
-             throw new Error(
-               "Invalid date input, please enter in the format of YYYY-MM-DD"
-             );
-           }
-         }
-         //Set values for input fields if they exist
-         if (this.#input2) {
-           this.#input2.val(this.#initparam.DefaultValue);
-           handleInputChange();
-         }
-         if (this.#input) {
-           this.#input.val(this.#initparam.DefaultValue);
-           handleInputChange();
- 
-         }
-         if (this.#input3) {
-           this.#input3.val(this.#initparam.DefaultValue);
-           handleInputChange();
- 
-         }
- 
-         this.#isDirty = true;
- 
-         if (this.#changeCallback) {
-           this.#changeCallback();
-         }
-       } 
-       /**
-        *Return the current value of input fields if no DefaultValue is provided
-        */
-       else {
-         return {
-           date: this.#input2 ? this.#input2.val() : "",
-           time: this.#input ? this.#input.val() : "",
-           datetime: this.#input3 ? this.#input3.val() : "",
-         };
-       }
-     } catch (error) {
-       console.error("Error in val() method:", error.message);
-     }
-   };
- 
-   /**
     * By using this function we can set the values at first it check whether given date and time is valied or not 
     * if its valied then its going to update
     * if its invalied its going to throw a error and in error it show correct format to assing values
@@ -420,7 +372,7 @@ class clsCreateInput
              this.#initparam.DisplayType === "timedate")
          ) {
              //to check its valied datetime or not
-           if (!isValidDateTime(val.datetime)) {
+           if (!this.#isValidDateTime(val.datetime)) {
              throw new Error(
                "Invalid date input, please enter in the format of YYYY-MM-DDTHH:MM"
              );
@@ -430,7 +382,7 @@ class clsCreateInput
              //to check its valied time or not
          else if (this.#initparam && this.#initparam.DisplayType === "time") 
          {
-           if (!isValidTime(val.time)) {
+           if (!this.#isValidTime(val.time)) {
              throw new Error(
                "Invalid time input, please enter in the format of HH:MM"
              );
@@ -439,7 +391,7 @@ class clsCreateInput
  
              //to check its valied time or not
           else {
-           if (!isValidDate(val.date)) {
+           if (!this.#isValidDate(val.date)) {
              throw new Error(
                "Invalid date input, please enter in the format of YYYY-MM-DD"
              );
@@ -449,15 +401,15 @@ class clsCreateInput
          //Set values for input fields if they exist
          if (this.#input2) {
            this.#input2.val(val.date)
-           handleInputChange();
+           this.handleInputChange.bind(this)
          }
          if (this.#input) {
            this.#input.val(val.time);
-           handleInputChange()
+           this.handleInputChange.bind(this)
          }
          if (this.#input3) {
            this.#input3.val(val.datetime);
-           handleInputChange();
+           this.handleInputChange.bind(this)
          }
  
          /**
@@ -546,16 +498,16 @@ class clsCreateInput
  
      if (this.#input2) {
        this.#input2.val(`${year}-${month}-${day}`);
-       handleInputChange();
+       this.handleInputChange.bind(this);
      }
      if (this.#input) {
        this.#input.val(`${hours}:${minutes}`);
-       handleInputChange();
+       this.handleInputChange.bind(this);
  
      }
      if (this.#input3) {
        this.#input3.val(`${year}-${month}-${day}T${hours}:${minutes}`);
-           handleInputChange();
+       this.handleInputChange.bind(this);
  
      }
    };
@@ -596,7 +548,7 @@ class clsCreateInput
    /**
     * used to check wheather the input (date) value is valied or not
     **/
- isValidDate=(dateStr)=> {
+ #isValidDate=(dateStr)=> {
      var date = new Date(dateStr);
      return !isNaN(date.getTime());
    }
@@ -604,7 +556,7 @@ class clsCreateInput
    /**
     * used to check wheather the input (time) value is valied or not
     **/
-   isValidTime=(timeStr) =>
+   #isValidTime=(timeStr) =>
    {
      if (typeof timeStr !== "string" || !/^\d{2}:\d{2}$/.test(timeStr))
      {
@@ -624,7 +576,7 @@ class clsCreateInput
    /**
     * used to check wheather the input (date and time) value is valied or not
     **/
- isValidDateTime=(dateTimeLocalStr)=>
+ #isValidDateTime=(dateTimeLocalStr)=>
    {
      var dateTimeRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/;
      if (!dateTimeRegex.test(dateTimeLocalStr)) 
@@ -659,15 +611,13 @@ class clsCreateInput
    /**
     * Event handler to fire whenever the value changes, either when set manually or through object.val(val function)
     **/
- //   function handleInputChange(e) {
- //     this.#isDirty = true;
- //     console.log("Input values changed");
- //     if (this.#changeCallback) {
- //         this.#changeCallback();
- //     }
- //     this.#initparam.onChange(e)
- // }
-   
+   handleInputChange(e) {
+    this.#isDirty = true;
+    console.log("Input values changed");
+    if (this.#changeCallback) {
+      this.#changeCallback();
+    }
+  }
       
    /**
     *it contains main div

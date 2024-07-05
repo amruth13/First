@@ -67,6 +67,12 @@ var clsCreateInput = function (param)
      */
   if(!_initparam.SuppressLabel)_initparam.SuppressLabel=false
 
+    /**
+     *     Setting default LabelTextAlignment
+     *  And the default LabelTextAlignment is 0
+     */
+  if(!_initparam.LabelTextAlignment)_initparam.LabelTextAlignment=0
+
     // create baseContainer,LabelContainer and Description container
     _baseContainer = $("<div>").addClass("test");
     _labelDiv = $("<div>").addClass("labelDivclass");

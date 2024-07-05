@@ -7,13 +7,13 @@ objarr.push(
     DefaultValue:"15:05",
     Label: "time",
     SuppressLabel: false,
-    LabelPosition: "",
+    LabelPosition: "left",
     Description   : "time is imp",
     ToolTipText : "time",
     Width:"100%",
     Height:"22px",
     LeftDivWidth :"20%",
-    LabelTextAlignment:2, 
+    // LabelTextAlignment:2, 
   })
 );
 
