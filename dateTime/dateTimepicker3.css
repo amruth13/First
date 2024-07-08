@@ -46,19 +46,21 @@
       position: relative;
   } */
   .checkbox1 {
-    position: absolute;
-    left: 10px;
-    top: 98px;
+    position: relative;
+    left: 11px;
+    top: -19px;
   }
   .checkbox2{
-    position: absolute;
-    top: 40px;
+    position: relative;
+    top: -18px;
     left: 10px;
 }
 .checkbox3{
-  position: absolute;
-  top: 155px;
+  position: relative;
+  top: -18px;
   left: 10px;
 }
+
+
     
 
