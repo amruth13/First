@@ -3,7 +3,7 @@ class clsDateTimeInput {
     #checkbox;
     #input;
     param;
-    
+
     constructor(param) {
         this.param = param;
         this.#container = $("<div>").addClass("datetime-container");
@@ -17,39 +17,48 @@ class clsDateTimeInput {
                 this.setInputToNow();
                 this.#input.prop("disabled", false);
             } else {
+                this.#input.val(this.getCurrentDateTimeValue());
                 this.#input.prop("disabled", true);
-                this.#input.val("");
             }
         });
 
-       
+    
         this.setInputToNow();
     }
-    setInputToNow() {
-    var now = new Date();
-    var year = now.getFullYear();
-    var month = ("0" + (now.getMonth() + 1)).slice(-2);
-    var day = ("0" + now.getDate()).slice(-2);
-    var hours = ("0" + now.getHours()).slice(-2);
-    var minutes = ("0" + now.getMinutes()).slice(-2);
+    #now = new Date();
+    #year = this.#now.getFullYear();
+    #month = ("0" + (this.#now.getMonth() + 1)).slice(-2);
+    #day = ("0" + this.#now.getDate()).slice(-2);
+    #hours = ("0" + this.#now.getHours()).slice(-2);
+    #minutes = ("0" + this.#now.getMinutes()).slice(-2);
 
-    if(this.param.type=='datetime')
-    {
-      console.log("datetime")
-      this.param.type = 'datetime-local';
-      console.log(this.param.type)
-      console.log(this.#input)
-      this.#input.attr({type:this.param.type})
-      this.#input.val(`${year}-${month}-${day}T${hours}:${minutes}`);
+    setInputToNow() {
+        if (this.param.type === 'datetime') {
+            this.param.type = 'datetime-local';
+            this.#input.attr({ type: this.param.type });
+            this.#input.val(`${this.#year}-${this.#month}-${this.#day}T${this.#hours}:${this.#minutes}`);
+        } else if (this.param.type === 'date') {
+            this.#input.val(`${this.#year}-${this.#month}-${this.#day}`);
+        } else if (this.param.type === 'time') {
+            this.#input.val(`${this.#hours}:${this.#minutes}`);
+        } else if (this.param.type === 'datetime-local') {
+            this.#input.val(`${this.#year}-${this.#month}-${this.#day}T${this.#hours}:${this.#minutes}`);
+        }
     }
-    if (this.param.type === 'date') {
-        this.#input.val(`${year}-${month}-${day}`);
-    } else if (this.param.type === 'time') {
-        this.#input.val(`${hours}:${minutes}`);
-    } else if (this.param.type === 'datetime-local') {
-        this.#input.val(`${year}-${month}-${day}T${hours}:${minutes}`);
+
+    getCurrentDateTimeValue() {
+        if (this.param.type === 'datetime') {
+            return `${this.#year}-${this.#month}-${this.#day}T${this.#hours}:${this.#minutes}`;
+        } else if (this.param.type === 'date') {
+            return `${this.#year}-${this.#month}-${this.#day}`;
+        } else if (this.param.type === 'time') {
+            return `${this.#hours}:${this.#minutes}`;
+        } else if (this.param.type === 'datetime-local') {
+            return `${this.#year}-${this.#month}-${this.#day}T${this.#hours}:${this.#minutes}`;
+        }
+
+        return "";
     }
-}
 
     getDesign() {
         return this.#container;

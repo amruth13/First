@@ -4,16 +4,16 @@ obj = $("<div>");
 objarr.push(
   new clsCreateInput({
     DisplayType: "time",
-    DefaultValue:"15:05",
+    DefaultValue:"10:10",
     Label: "time",
     SuppressLabel: false,
-    LabelPosition: "left",
+    LabelPosition: "",
     Description   : "time is imp",
     ToolTipText : "time",
-    Width:"100%",
+    Width:"50%",
     Height:"22px",
     LeftDivWidth :"20%",
-    // LabelTextAlignment:2, 
+    LabelTextAlignment:2, 
   })
 );
 
@@ -29,7 +29,7 @@ objarr.push(
     Width:"100%",
     Height:"22px",
     LeftDivWidth :"20%",
-    LabelTextAlignment:0,
+    LabelTextAlignment:2,
   })
 );
 
@@ -45,7 +45,7 @@ objarr.push(
     Width:"100%",
     Height:"22px",
     LeftDivWidth :"20%",
-    LabelTextAlignment:0,
+    LabelTextAlignment:2,
   })
 );
 
@@ -53,7 +53,6 @@ objarr.forEach(function (x, i) {
 console.log(x);
 $("body").append(x.getDesign());
 x.label();
-// x.DefaultValue();
 x.val();
 x.isFilled();
 x.toolTipText ();

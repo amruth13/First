@@ -3,6 +3,7 @@
     margin: 0;
     box-sizing: border-box;
   
+  
   }
   .leftlabel {
     width: 100%;
@@ -40,3 +41,24 @@
       float: left;
     
      }
+     /* .datetime-container {
+      display: inline-block;
+      position: relative;
+  } */
+  .checkbox1 {
+    position: absolute;
+    left: 10px;
+    top: 98px;
+  }
+  .checkbox2{
+    position: absolute;
+    top: 40px;
+    left: 10px;
+}
+.checkbox3{
+  position: absolute;
+  top: 155px;
+  left: 10px;
+}
+    
+

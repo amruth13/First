@@ -13,7 +13,7 @@
  *
  */
 
-class clsCreateInput
+ class clsCreateInput
  {
    #baseContainer ;
    #labelDiv ;
@@ -29,7 +29,10 @@ class clsCreateInput
    #description;
    #handleInputChange;
    #checkBox;
-   #checkBoxDiv;
+   #checkBox1;
+   #checkBox2;
+   #checkBox3;
+
 
  
    constructor (param) 
@@ -71,13 +74,11 @@ class clsCreateInput
       *  And the default SuppressLabel is false
       */
    if(!this.#initparam.SuppressLabel)this.#initparam.SuppressLabel=false
-
-       /**
+         /**
       *     Setting default Default Value
       *  And the default Default value is ""
       */
-    if(!this.#initparam.DefaultValue)this.#initparam.DefaultValue==""
-
+         if(!this.#initparam.DefaultValue)this.#initparam.DefaultValue==""
  
      // create baseContainer,LabelContainer and Description container
      this.#baseContainer = $("<div>").addClass("test");
@@ -88,10 +89,52 @@ class clsCreateInput
      this.#labelDiv.append(this.#label).css("width", this.#initparam.LeftDivWidth);
      this.#isDirty = false;
      this.#changeCallback = null;
-    this.#checkBoxDiv=$('<div>').append(this.#checkBox);
-    this.#checkBox=$("<input type='checkBox'>")
+    // this.#checkBoxDiv=$('<div>').append(this.#checkBox);
+    this.#checkBox = $("<input>").attr({ type: "checkbox", class: "checkbox1" });
+    this.#checkBox1 = $("<input>").attr({ type: "checkbox", class: "checkbox2" });
+    this.#checkBox2 = $("<input>").attr({ type: "checkbox", class: "checkbox3" });
 
- 
+
+
+
+    this.#checkBox1.change(() => {
+      if (this.#checkBox1.prop("checked")) {
+          this.initNow();
+          this.#input.prop({"disabled": false,
+          });
+      } else {
+          this.#input.val(this.getCurrentDateTimeValue());
+       
+          this.#input.prop("disabled", true);
+      }
+  });
+
+  this.#checkBox2.change(() => {
+    if (this.#checkBox2.prop("checked")) {
+        this.initNow();
+        this.#input2.prop({"disabled": false,
+        });
+    } else {
+        this.#input2.val(this.getCurrentDateTimeValue());
+     
+        this.#input2.prop("disabled", true);
+    }
+});
+
+this.#checkBox.change(() => {
+  if (this.#checkBox.prop("checked")) {
+      this.initNow();
+      this.#input3.prop("disabled", false);
+  } else {
+      this.#input3.val(this.getCurrentDateTimeValue());
+      this.#input3.prop("disabled", true);
+  }
+});
+
+
+
+
+
       //Checking the DisplayType to create its type of inputTag
      if (
        this.#initparam &&
@@ -103,9 +146,9 @@ class clsCreateInput
      {
        this.#input3 = $("<input type='datetime-local'>")
        .attr({title:this.#initparam.ToolTipText, 
-        value:this.#isValidDateTime(this.#initparam.DefaultValue)?this.#initparam.DefaultValue:console.error("invalied date-time input please enter date time in the form of YYYY-MM-DDTHH:MM"),
+        value:this.#isValidDateTime(this.#initparam.DefaultValue)?this.#initparam.DefaultValue:console.error("invalied date-time input please enter date time in the form of YYYY-MM-DDTHH:MM"),disabled: true 
       })
-         .css({ width: this.#initparam.Width, height: this.#initparam.Height })
+         .css({ width: this.#initparam.Width, height: this.#initparam.Height,paddingLeft:"25px" })
          .on("change",  this.handleInputChange.bind(this));
      } 
  
@@ -117,9 +160,11 @@ class clsCreateInput
      {
        this.#input = $("<input type='time'>")
        .attr({title:this.#initparam.ToolTipText, 
-        value:this.#isValidTime(this.#initparam.DefaultValue)?this.#initparam.DefaultValue:console.error("invalied time input please enter in the form of HH:MM"),
+        value:this.#isValidTime(this.#initparam.DefaultValue)?this.#initparam.DefaultValue:console.error("invalied time input please enter in the form of HH:MM"), disabled: true 
       })
-         .css({ width: this.#initparam.Width, height: this.#initparam.Height })
+         .css({ width: this.#initparam.Width, height: this.#initparam.Height,paddingLeft:"25px",
+          position:"relative"
+         })
          .on("change",  this.handleInputChange.bind(this));   
      } 
  
@@ -131,15 +176,10 @@ class clsCreateInput
      {
        this.#input2 = $("<input type='date'>")
        .attr({title:this.#initparam.ToolTipText, 
-        value:this.#isValidDate(this.#initparam.DefaultValue)?this.#initparam.DefaultValue:console.error("invalied  date input please enter in the form of YYYY-MM-DD"),
+        value:this.#isValidDate(this.#initparam.DefaultValue)?this.#initparam.DefaultValue:console.error("invalied  date input please enter in the form of YYYY-MM-DD"), disabled: true 
       })
-         .css({ width: this.#initparam.Width, height: this.#initparam.Height })
+         .css({ width: this.#initparam.Width, height: this.#initparam.Height,paddingLeft:"25px" })
          .on("change",  this.handleInputChange.bind(this))
-          // if(this.#isRequired==true){
-            
-          // }
-       
-         ;
  
      }
  
@@ -181,8 +221,6 @@ class clsCreateInput
          //checking DisplayType
          case "time":
            this.#controlDiv.append(this.#input);
-          //  this.#controlDiv.append(this.#checkBox)
-
  
             /**
           * Appending according to the label postion 
@@ -197,10 +235,10 @@ class clsCreateInput
                "width",
                100 - parseInt(this.#initparam.LeftDivWidth) + "%"
              );
+             this.#controlDiv.append(this.#input,this.#checkBox1)
              this.#baseContainer.append(this.#controlDiv);
-             if(this.#initparam.isRequired==true){
-              this.#controlDiv.append(this.#checkBoxDiv)
-             }
+             
+
          } 
  
             /**
@@ -214,7 +252,9 @@ class clsCreateInput
              this.#baseContainer.append(this.#descriptionDiv).css("width", "100%");
              this.#label.addClass("defaultlabel");
              this.#controlDiv.css("width", "100%")
+             this.#controlDiv.append(this.#input,this.#checkBox1)
              this.#baseContainer.append(this.#controlDiv);
+           
  
          } 
            
@@ -224,8 +264,9 @@ class clsCreateInput
           */
            else if (this.#initparam.LabelPosition == "right") 
          {
+             this.#controlDiv.append(this.#input,this.#checkBox1)
              this.#baseContainer.append(this.#descriptionDiv).css("width", "100%");
-             this.#baseContainer.append(this.#controlDiv);
+             this.#baseContainer.append(this.#checkBox,this.#controlDiv);
              this.#controlDiv.css(
                "width",
                100 - parseInt(this.#initparam.LeftDivWidth) + "%"
@@ -237,7 +278,7 @@ class clsCreateInput
  
          //checking DisplayType
          case "date":
-           this.#controlDiv.append(this.#input2);
+          //  this.#controlDiv.append(this.#input2);
  
             /**
           * Appending according to the label postion 
@@ -245,6 +286,7 @@ class clsCreateInput
           */
            if (this.#initparam.LabelPosition == "left") 
          {
+          this.#controlDiv.append(this.#input2,this.#checkBox2)
              this.#baseContainer.append(this.#descriptionDiv).css("width", "100%");
              this.#baseContainer.append(this.#labelDiv);
              this.#label.addClass("leftlabel");
@@ -266,6 +308,7 @@ class clsCreateInput
              this.#baseContainer.append(this.#descriptionDiv).css("width", "100%");
              this.#label.addClass("defaultlabel");
              this.#controlDiv.css("width", "100%");
+             this.#controlDiv.append(this.#input2,this.#checkBox2)
              this.#baseContainer.append(this.#controlDiv);
          } 
          
@@ -275,6 +318,7 @@ class clsCreateInput
           */
          else if (this.#initparam.LabelPosition == "right") 
          {
+          this.#controlDiv.append(this.#input2,this.#checkBox2)
              this.#baseContainer.append(this.#descriptionDiv).css("width", "100%");
              this.#baseContainer.append(this.#controlDiv);
              this.#controlDiv.css(
@@ -289,7 +333,7 @@ class clsCreateInput
          //checking DisplayType
          case "datetime":
          case  "timedate":
-           this.#controlDiv.append(this.#input3);
+          //  this.#controlDiv.append(this.#input3);
  
          /**
           * Appending according to the label postion 
@@ -304,6 +348,7 @@ class clsCreateInput
                "width",
                100 - parseInt(this.#initparam.LeftDivWidth) + "%"
              );
+             this.#controlDiv.append(this.#input3,this.#checkBox)
              this.#baseContainer.append(this.#controlDiv);
          } 
  
@@ -313,11 +358,13 @@ class clsCreateInput
           */
          else if (this.#initparam.LabelPosition == "top") 
          {
+          this.#controlDiv.append(this.#input3,this.#checkBox)
            this.#labelDiv.css("width", "100%")
              this.#baseContainer.append(this.#labelDiv);
              this.#baseContainer.append(this.#descriptionDiv).css("width", "100%");
              this.#label.addClass("defaultlabel");
               this.#controlDiv.css("width", "100%");
+          
              this.#baseContainer.append(this.#controlDiv);
          }
          
@@ -327,6 +374,7 @@ class clsCreateInput
           */
          else if (this.#initparam.LabelPosition == "right") 
          {
+            this.#controlDiv.append(this.#input3,this.#checkBox)
              this.#baseContainer.append(this.#descriptionDiv).css("width", "100%");
              this.#baseContainer.append(this.#controlDiv);
              this.#controlDiv.css(
@@ -514,6 +562,29 @@ class clsCreateInput
  
      }
    };
+
+
+   getCurrentDateTimeValue=function() {
+    var now = new Date();
+     var year = now.getFullYear();
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+   var  day = ("0" +now.getDate()).slice(-2);
+    var hours = ("0" +now.getHours()).slice(-2);
+    var minutes = ("0" +now.getMinutes()).slice(-2);
+
+
+    if (this.#initparam.DisplayType === 'datetime') {
+        return `${year}-${month}-${day}T${hours}:${minutes}`;
+    } else if (this.#initparam.DisplayType === 'date') {
+        return `${year}-${month}-${day}`;
+    } else if (this.#initparam.DisplayType === 'time') {
+        return `${hours}:${minutes}`;
+    } else if (this.#initparam.DisplayType === 'datetime-local') {
+        return `${year}-${month}-${day}T${hours}:${minutes}`;
+    }
+
+    return "";
+}
  
      /**
     * sets text content for the tooltip mouseover

@@ -31,6 +31,7 @@ objarr.push(
     Height:"22px",
     LeftDivWidth :"20%",
     LabelTextAlignment:0,
+    isRequired:true,
   })
 );
 
@@ -56,7 +57,7 @@ objarr.forEach(function (x, i) {
 console.log(x);
 $("body").append(x.getDesign());
 x.label();
-// x.DefaultValue();
+
 x.val();
 x.isFilled();
 x.toolTipText ();
