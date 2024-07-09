@@ -10,8 +10,8 @@ objarr.push(
     LabelPosition: "",
     Description   : "time is imp",
     ToolTipText : "time",
-    Width:"100%",
-    Height:"22px",
+    Width:"",
+    Height:"",
     LeftDivWidth :"20%",
     LabelTextAlignment:2, 
   })
@@ -26,8 +26,8 @@ objarr.push(
     LabelPosition: "",
     Description   : "date and time is imp",
     ToolTipText : "Date and time",
-    Width:"100%",
-    Height:"22px",
+    Width:"",
+    Height:"",
     LeftDivWidth :"20%",
     LabelTextAlignment:2,
   })
@@ -42,8 +42,8 @@ objarr.push(
     LabelPosition: "",
     Description   : "date is imp",
     ToolTipText : "date",
-    Width:"100%",
-    Height:"22px",
+    Width:"",
+    Height:"",
     LeftDivWidth :"20%",
     LabelTextAlignment:2,
   })
@@ -58,5 +58,6 @@ x.isFilled();
 x.toolTipText ();
 //  x.clear();
 //  x.initNow();
+x.getCurrentDateTimeValue();
 });
 console.log(objarr);

@@ -31,10 +31,7 @@
    #checkBox;
    #checkBox1;
    #checkBox2;
-   #checkBox3;
 
-
- 
    constructor (param) 
    {
      this.#initparam = param;
@@ -85,29 +82,30 @@
      this.#labelDiv = $("<div>").addClass("labelDivclass");
      this.#label = $("<div>");
      this.#descriptionDiv = $("<div>").addClass("descriptionDivClass");
-     this.#controlDiv = $("<div>").addClass("controlDivClass");
+     this.#controlDiv = $("<div>").css({float:"left",position:"relative",width: this.#initparam.Width, height: this.#initparam.Height,})
      this.#labelDiv.append(this.#label).css("width", this.#initparam.LeftDivWidth);
      this.#isDirty = false;
      this.#changeCallback = null;
-    // this.#checkBoxDiv=$('<div>').append(this.#checkBox);
-    this.#checkBox = $("<input>").attr({ type: "checkbox", class: "checkbox1" });
-    this.#checkBox1 = $("<input>").attr({ type: "checkbox", class: "checkbox2" });
-    this.#checkBox2 = $("<input>").attr({ type: "checkbox", class: "checkbox3" });
+     this.#checkBox = $("<input>").attr({ type: "checkbox", class: "checkbox1" });
+     this.#checkBox1 = $("<input>").attr({ type: "checkbox", class: "checkbox2" });
+     this.#checkBox2 = $("<input>").attr({ type: "checkbox", class: "checkbox3" });
 
 
 
-
-    this.#checkBox1.change(() => {
+    //check box for input1 which handel enable and disable  of input
+     this.#checkBox1.change(() => {
       if (this.#checkBox1.prop("checked")) {
           this.initNow();
           this.#input.prop({"disabled": false,
           });
+        
+
       } else {
           this.#input.val(this.getCurrentDateTimeValue());
-       
           this.#input.prop("disabled", true);
       }
   });
+   //check box for input2 which handel enable and disable  of input
 
   this.#checkBox2.change(() => {
     if (this.#checkBox2.prop("checked")) {
@@ -116,24 +114,24 @@
         });
     } else {
         this.#input2.val(this.getCurrentDateTimeValue());
-     
         this.#input2.prop("disabled", true);
+
+
     }
 });
+    //check box for input3 which handel enable and disable  of input
 
-this.#checkBox.change(() => {
-  if (this.#checkBox.prop("checked")) {
+   this.#checkBox.change(() => {
+    if (this.#checkBox.prop("checked")) {
       this.initNow();
       this.#input3.prop("disabled", false);
-  } else {
+    } else {
       this.#input3.val(this.getCurrentDateTimeValue());
-      this.#input3.prop("disabled", true);
+      this.#input3.prop({"disabled": true,});
+   
+
   }
 });
-
-
-
-
 
       //Checking the DisplayType to create its type of inputTag
      if (
@@ -148,13 +146,13 @@ this.#checkBox.change(() => {
        .attr({title:this.#initparam.ToolTipText, 
         value:this.#isValidDateTime(this.#initparam.DefaultValue)?this.#initparam.DefaultValue:console.error("invalied date-time input please enter date time in the form of YYYY-MM-DDTHH:MM"),disabled: true 
       })
-         .css({ width: this.#initparam.Width, height: this.#initparam.Height,paddingLeft:"25px" })
+         .css({paddingLeft:"25px"})
          .on("change",  this.handleInputChange.bind(this));
      } 
  
       /**
        * Checking the DisplayType to create its type of inputTag
-     creating input tag of type time
+         creating input tag of type time
        */
      else if (this.#initparam && this.#initparam.DisplayType === "time") 
      {
@@ -162,7 +160,7 @@ this.#checkBox.change(() => {
        .attr({title:this.#initparam.ToolTipText, 
         value:this.#isValidTime(this.#initparam.DefaultValue)?this.#initparam.DefaultValue:console.error("invalied time input please enter in the form of HH:MM"), disabled: true 
       })
-         .css({ width: this.#initparam.Width, height: this.#initparam.Height,paddingLeft:"25px",
+         .css({paddingLeft:"25px",
           position:"relative"
          })
          .on("change",  this.handleInputChange.bind(this));   
@@ -178,7 +176,7 @@ this.#checkBox.change(() => {
        .attr({title:this.#initparam.ToolTipText, 
         value:this.#isValidDate(this.#initparam.DefaultValue)?this.#initparam.DefaultValue:console.error("invalied  date input please enter in the form of YYYY-MM-DD"), disabled: true 
       })
-         .css({ width: this.#initparam.Width, height: this.#initparam.Height,paddingLeft:"25px" })
+         .css({paddingLeft:"25px" })
          .on("change",  this.handleInputChange.bind(this))
  
      }
@@ -221,7 +219,6 @@ this.#checkBox.change(() => {
          //checking DisplayType
          case "time":
            this.#controlDiv.append(this.#input);
- 
             /**
           * Appending according to the label postion 
           *  if its position is left
@@ -237,8 +234,6 @@ this.#checkBox.change(() => {
              );
              this.#controlDiv.append(this.#input,this.#checkBox1)
              this.#baseContainer.append(this.#controlDiv);
-             
-
          } 
  
             /**
@@ -254,8 +249,6 @@ this.#checkBox.change(() => {
              this.#controlDiv.css("width", "100%")
              this.#controlDiv.append(this.#input,this.#checkBox1)
              this.#baseContainer.append(this.#controlDiv);
-           
- 
          } 
            
             /**
@@ -266,7 +259,7 @@ this.#checkBox.change(() => {
          {
              this.#controlDiv.append(this.#input,this.#checkBox1)
              this.#baseContainer.append(this.#descriptionDiv).css("width", "100%");
-             this.#baseContainer.append(this.#checkBox,this.#controlDiv);
+             this.#baseContainer.append(this.#controlDiv);
              this.#controlDiv.css(
                "width",
                100 - parseInt(this.#initparam.LeftDivWidth) + "%"
@@ -280,7 +273,7 @@ this.#checkBox.change(() => {
          case "date":
           //  this.#controlDiv.append(this.#input2);
  
-            /**
+          /**
           * Appending according to the label postion 
           *  if its position is left
           */
@@ -333,8 +326,6 @@ this.#checkBox.change(() => {
          //checking DisplayType
          case "datetime":
          case  "timedate":
-          //  this.#controlDiv.append(this.#input3);
- 
          /**
           * Appending according to the label postion 
           *  if its position is left
@@ -388,7 +379,7 @@ this.#checkBox.change(() => {
        }
      } 
      
-     //if SuppressLabel is true only input is visible
+     //if SuppressLabel is true only controlDiv(input) is visible
      else 
      {
        this.#baseContainer.append(this.#controlDiv);
@@ -468,10 +459,6 @@ this.#checkBox.change(() => {
           * @return true 
           *  */ 
          this.#isDirty = true;
- 
-         // if (this.#changeCallback) {
-         //   this.#changeCallback();
-         // }
        } 
  
         /**
@@ -563,6 +550,10 @@ this.#checkBox.change(() => {
      }
    };
 
+   /**
+    * it sets the current(present) date and time for inputs
+    * when checkbox is unchecked
+    **/
 
    getCurrentDateTimeValue=function() {
     var now = new Date();
@@ -626,7 +617,6 @@ this.#checkBox.change(() => {
      var date = new Date(dateStr);
      return !isNaN(date.getTime());
    }
- 
    /**
     * used to check wheather the input (time) value is valied or not
     **/

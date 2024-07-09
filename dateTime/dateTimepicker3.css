@@ -24,6 +24,13 @@
       overflow: hidden;
    
     }
+
+    input[type="checkbox"]{
+
+      position: absolute;
+      left: 10px;
+      top: 4px;
+    }
     .rightlabel2 {
    float: left;
     }
@@ -37,29 +44,8 @@
       width: 100%;
       float: left;
      }
-     .controlDivClass{
-      float: left;
-    
-     }
-     /* .datetime-container {
-      display: inline-block;
-      position: relative;
-  } */
-  .checkbox1 {
-    position: relative;
-    left: 11px;
-    top: -19px;
-  }
-  .checkbox2{
-    position: relative;
-    top: -18px;
-    left: 10px;
-}
-.checkbox3{
-  position: relative;
-  top: -18px;
-  left: 10px;
-}
+
+
 
 
     
